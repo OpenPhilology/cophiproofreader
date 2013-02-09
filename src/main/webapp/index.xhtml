@@ -32,7 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <h:outputStylesheet library="css" name="nlp.css"/>
         <p:layout fullPage="true">
             <p:layoutUnit size="10%" position="north" resizable="true" closable="false" collapsible="true">
-                <h:form id="libraryForm" prependId="lf">
+                <h:form id="libraryForm" prependId="lf"> 
+                <!-- prependID è un attributo booleano, true: propaga; false: non propaga -->
                     <p:selectOneMenu value="#{libraryBean.library.currBookReference}">
                         <f:selectItems value="#{libraryBean.library.ocrBooks}" var="ocrBook" itemLabel="#{ocrBook.ocrBookLabel}" itemValue="#{ocrBook.id}"/>
                         <f:ajax immediate="true" listener="#{libraryBean.update(libraryBean.library.currBookReference)}" render=":bookForm"/>
