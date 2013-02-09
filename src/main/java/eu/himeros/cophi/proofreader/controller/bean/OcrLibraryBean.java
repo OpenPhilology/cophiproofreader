@@ -36,55 +36,88 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "libraryBean")
 @SessionScoped
+
+/**
+ * 
+ */
 public class OcrLibraryBean implements Serializable {
     private static final transient Logger log = Logger.getLogger(InitBean.class.getName());
     @ManagedProperty(value = "#{initBean}")
     InitBean initBean;
     OcrLibrary<String, String, String> library;
 
+    /**
+     * 
+     */
     public OcrLibraryBean() {
     }
 
+    /**
+     * 
+     */
     @PostConstruct
     public void init() {
         library = new OcrLibrary();
         library.setRoot(initBean.getRoot());
         library.setBookFilter(initBean.getBookFilter());
         library.setPageFilter(initBean.getPageFilter());
-        Descriptor ldd = new LibraryDirectoryDescriptor();
-        ldd.setFilter(library.getBookFilter());
-        ldd.setRepository(library.getRoot());
-        ldd.initRepository();
-        List<String> bookIds = ldd.getReferences();
+        Descriptor libDirDescriptor = new LibraryDirectoryDescriptor();
+        libDirDescriptor.setFilter(library.getBookFilter());
+        libDirDescriptor.setRepository(library.getRoot());
+        libDirDescriptor.initRepository();
+        List<String> bookIds = libDirDescriptor.getReferences();
         int i = 0;
         for (String bookId : bookIds) {
             OcrBook<String> book = new OcrBook<>();
             book.setId(i);
             book.setOcrBookId(bookId);
-            //FB6
-            //File f=new File(bookId);
-            //FB6 - bookId -->f.getName()
             String bookLabel = bookId.replaceAll("_", " ").replaceAll("-", ", ").replaceAll("\\..*?$", "");
             book.setOcrBookLabel(bookLabel);
             library.getOcrBooks().add(book);
             i++;
         }
-        library.setCurrBookReference(1);
+        library.setCurrBookReference(0);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public OcrLibrary<String, String, String> getLibrary() {
         return library;
     }
 
+    /**
+     * 
+     * @param library 
+     */
     public void setLibrary(OcrLibrary<String, String, String> library) {
         this.library = library;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public InitBean getInitBean() {
         return initBean;
     }
 
+    /**
+     * 
+     * @param initBean 
+     */
     public void setInitBean(InitBean initBean) {
         this.initBean = initBean;
+    }
+    
+    /**
+     * 
+     * @param currBookReferenceStr 
+     */
+    public void update(String currBookReferenceStr){
+        int currBookReference=Integer.parseInt(currBookReferenceStr);
+        library.setCurrBookReference(currBookReference);
+        library.getCurrBook().setCurrPageReference(0);
     }
 }

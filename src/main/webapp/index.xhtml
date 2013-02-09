@@ -22,7 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>CoPhiProofReader</title>
         <!-- rev 0.2 -->
@@ -34,7 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h:form id="libraryForm" prependId="lf">
                     <p:selectOneMenu value="#{libraryBean.library.currBookReference}">
                         <f:selectItems value="#{libraryBean.library.ocrBooks}" var="ocrBook" itemLabel="#{ocrBook.ocrBookLabel}" itemValue="#{ocrBook.id}"/>
+                        <f:ajax immediate="true" listener="#{libraryBean.update(libraryBean.library.currBookReference)}" render=":bookForm"/>
                     </p:selectOneMenu>
+                    <p:commandButton actionListener="#{pageBean.save()}" value="Save"/>
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit size="90%" position="center" resizable="true" closable="false" collapsible="true">
@@ -42,10 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <p:layoutUnit style="text-align: right;" size="10%" position="west" resizable="true" closable="false" collapsible="true">
                         <h:form id="bookForm" prependId="bf">
                             <c:forEach items="#{bookBean.ocrPages}" var="ocrPage">
-                                <p:commandLink immediate="false"  update="" onclick="document.getElementById('pageForm').style.display='block';" oncomplete="window.location.reload();"  style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
+                                <p:commandLink immediate="false" oncomplete="window.location.reload();"  style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
                                     <f:setPropertyActionListener value="#{ocrPage.id}" target="#{bookBean.currPageReference}" />
-                                </p:commandLink><h:outputText value="&nbsp;&nbsp;&lt;br/&gt;" escape="false"/>
-                               
+                                </p:commandLink><h:outputText value="&nbsp;&nbsp;&lt;br/&gt;" escape="false"/>                   
                             </c:forEach>
                         </h:form>
                     </p:layoutUnit>
@@ -55,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <c:forEach items="#{pageBean.page.ocrLines}" var="ocrLine" varStatus="lineStatus">
                                     <h:outputText value="&lt;br/&gt;" escape="false"/>
                                     <h:outputText value="&lt;br/&gt;" escape="false"/>
-                                    <p:graphicImage value="#{pageImageBean.image}" height="20">
+                                    <p:graphicImage  value="#{pageImageBean.image}" height="20">
                                         <f:param name="lineId" value="#{lineStatus.index}"/>
                                         <f:param name="x1" value="#{ocrLine.scan.coords.x1}"/>
                                         <f:param name="y1" value="#{ocrLine.scan.coords.y1}"/>
@@ -63,19 +65,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <f:param name="y2" value="#{ocrLine.scan.coords.y2}"/>
                                     </p:graphicImage>
                                     <h:outputText value="&lt;br/&gt;" escape="false"/>
-
-
-                                    <c:forEach items="#{ocrLine.ocrWords}" var="ocrWord" varStatus="wordStatus">   
-                                        <!--<h:outputText value="!{ocrWord.insertion.text}"/>-->
-                                        <span onclick="document.getElementsByName('s#{lineStatus.index}_#{wordStatus.index}')[0].style.color='black';"  style="font-family:Helvetica;font-size: medium;color:#{ocrWord.insertion.nlpColor};" name="s#{lineStatus.index}_#{wordStatus.index}">
-                                            <p:inplace editor="true">
-                                                <p:selectOneMenu editable="true" value="${ocrWord.insertion.text}">
-                                                    <f:selectItem itemLabel="#{ocrWord.insertion.text}" itemValue="#{ocrWord.insertion.text}"/>
-                                                    <f:selectItems value="#{ocrWord.deletions}" var="del" itemLabel="#{del.text}" itemValue="#{del.text}"/>
-                                                </p:selectOneMenu>
-                                                <p:ajax event="save" listener="#{pageBean.updateInsertion(ocrWord.insertion.text,lineStatus.index,wordStatus.index)}"/>
-                                            </p:inplace><p:spacer width="10px"/>
-                                        </span>
+                                    <c:forEach items="#{ocrLine.ocrWords}" var="ocrWord" varStatus="wordStatus">
+                                        <p:inplace editor="true" emptyLabel="#" style="font-family:Helvetica;font-size: medium;color:#{ocrWord.insertion.nlpColor}">
+                                            <p:selectOneMenu editable="true" value="${ocrWord.insertion.text}">
+                                                <f:selectItem  itemLabel="#{ocrWord.insertion.text}" itemValue="#{ocrWord.insertion.text}"/>
+                                                <f:selectItems value="#{ocrWord.deletions}" var="del" itemLabel="#{del.text}" itemValue="#{del.text}"/>
+                                            </p:selectOneMenu>
+                                            <p:ajax event="save" update="@this" listener="#{pageBean.updateInsertion(ocrWord.insertion.text,lineStatus.index,wordStatus.index)}"/>
+                                        </p:inplace><p:spacer width="10px"/>
                                     </c:forEach>
                                 </c:forEach>
                             </h:form>
@@ -84,17 +81,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </p:layout>
             </p:layoutUnit>
         </p:layout>
-        <f:verbatim>
-            <script type="text/javascript">
-                <![CDATA[
-                function sleep(ms)
-                {
-                    var dt = new Date();
-                    dt.setTime(dt.getTime() + ms);
-                    while (new Date().getTime() < dt.getTime());
-                }
-                ]]>
-            </script>
-        </f:verbatim>
     </h:body>
 </html>

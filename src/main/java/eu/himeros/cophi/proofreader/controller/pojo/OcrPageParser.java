@@ -19,7 +19,6 @@
 package eu.himeros.cophi.proofreader.controller.pojo;
 
 import eu.himeros.cophi.proofreader.model.*;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +32,6 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
-import org.primefaces.model.DefaultStreamedContent;
 
 /**
  *
@@ -57,6 +55,15 @@ public class OcrPageParser implements Serializable {
         ocrPage.setHocrDocument(hocrDocument);
     }
 
+    public OcrPage getOcrPage() {
+        return ocrPage;
+    }
+
+    public void setOcrPage(OcrPage ocrPage) {
+        this.ocrPage = ocrPage;
+    }
+
+    
     public void setHocrDocument(Document hocrDocument) {
         ocrPage.setHocrDocument(hocrDocument);
     }
@@ -85,21 +92,18 @@ public class OcrPageParser implements Serializable {
         return parse(hocrDocument);
     }
     
-    public OcrPage parse(String path, Document hocrDocument) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    public OcrPage parse(String path, Document hocrDocument, OcrPage ocrPage) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException{
         setPath(path);
+        setOcrPage(ocrPage);
         return parse(hocrDocument);
     }
 
     public OcrPage parse(Document hocrDocument) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ocrPage = new OcrPage();
         ocrPage.setHocrDocument(hocrDocument);
         Element root = hocrDocument.getRootElement();
         Namespace xmlns=root.getNamespace();
-        String pageId = root.getChildren().get(1).getChildren().get(0).getAttributeValue("id");
-        //logger.log(Level.FINE,"pageId: {0}", pageId);
-        ocrPage.setOcrPageId(pageId);
-        System.err.println(pageId);
-        //ocrPageImage=(BufferedImage)il.load(path+pageId);
+        String scanId = root.getChildren().get(1).getChildren().get(0).getAttributeValue("id");
+        ocrPage.setScan(new Scan<>(scanId));
         List<OcrLine> ocrLines = new ArrayList<>();
         for (Element ocrLineEl : root.getChildren().get(1).getChildren().get(0).getChildren("span",xmlns)) { //cycle on /html/body/span[@class='ocr_page']/span[@class='ocr_line']
             ocrLines.add(parseOcrLine(ocrLineEl));
@@ -109,16 +113,14 @@ public class OcrPageParser implements Serializable {
     }
 
     private OcrLine parseOcrLine(Element ocrLineEl) {
-        OcrLine ocrLine = new OcrLine();
-        //logger.log(Level.INFO,"class: {0}", ocrLineEl.getAttributeValue("class"));        
+        OcrLine ocrLine = new OcrLine();       
         OcrCoords ocrLineCoords = new OcrCoords(ocrLineEl.getAttributeValue("title"));
-        ocrLine.setScan(new Scan(path+ocrPage.getOcrPageId(),ocrLineCoords));
+        ocrLine.setScan(new Scan(path+ocrPage.getScan().getImage(),ocrLineCoords));
         List<OcrWord> ocrWords = new ArrayList<>();
         for (Element ocrWordEl : ocrLineEl.getChildren()) {
             ocrWords.add(parseOcrWord(ocrWordEl));
         }
         ocrLine.setOcrWords(ocrWords);
-        System.err.println("***");
         return ocrLine;
     }
 
@@ -126,7 +128,6 @@ public class OcrPageParser implements Serializable {
         OcrWord ocrWord = new OcrWord();
         ocrWord.setId(ocrWordEl.getAttributeValue("id"));
         OcrCoords ocrWordCoords = new OcrCoords(ocrWordEl.getAttributeValue("title"));
-        //logger.log(Level.INFO,"$$$ wordcoord: {0}",""+ocrWordCoords.getX1());
         ocrWord.setScan(new Scan(ocrWordCoords));
         boolean firstLine = true;
         List<Deletion> alternativeDeletions = new ArrayList<>();
@@ -139,7 +140,6 @@ public class OcrPageParser implements Serializable {
             }
         }
         ocrWord.setDeletions(alternativeDeletions);
-        System.err.print(ocrWord.getInsertion().getText());
         return ocrWord;
     }
     
@@ -156,6 +156,5 @@ public class OcrPageParser implements Serializable {
         alternativeDeletion.setNlp(ocrAlternativeEl.getAttributeValue("title"));
         return alternativeDeletion;
     }
-    
     
 }

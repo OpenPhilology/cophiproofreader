@@ -30,10 +30,12 @@ public class OcrBook<T> implements Serializable{
     int id;
     T ocrBookId;
     String ocrBookLabel;
+    int currPageReference;
+    OcrPage currPage;
+    
     List<OcrPage> ocrPages;
     
     public OcrBook(){
-        //ocrPages=new ArrayList<>();
         ocrPages=null;
     }
 
@@ -43,6 +45,24 @@ public class OcrBook<T> implements Serializable{
 
     public void setOcrPages(List<OcrPage> ocrPages) {
         this.ocrPages = ocrPages;
+    }
+
+    public OcrPage getCurrPage() {
+        return currPage;
+    }
+
+    public void setCurrPage(OcrPage currPage) {
+        currPageReference=currPage.getId();
+        this.currPage = currPage;
+    }
+
+    public int getCurrPageReference() {
+        return currPageReference;
+    }
+
+    public void setCurrPageReference(int currPageReference) {
+        this.currPageReference = currPageReference;
+        currPage=ocrPages.get(currPageReference);
     }
 
     public int getId() {
@@ -68,5 +88,5 @@ public class OcrBook<T> implements Serializable{
     public void setOcrBookLabel(String ocrBookLabel) {
         this.ocrBookLabel = ocrBookLabel;
     }
-
+    
 }

@@ -31,6 +31,10 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name="initBean")
 @ApplicationScoped
+
+/**
+ * 
+ */
 public class InitBean implements Serializable{
     private final static transient Logger log= Logger.getLogger(InitBean.class.getName());
     String root="/opt/junk";
@@ -38,38 +42,67 @@ public class InitBean implements Serializable{
     String pageFilter=".html";
     String imageFilter=".png";
 
+    /**
+     * 
+     * @return 
+     */
     public String getBookFilter() {
         return bookFilter;
     }
 
+    /**
+     * 
+     * @param bookFilter 
+     */
     public void setBookFilter(String bookFilter) {
         this.bookFilter = bookFilter;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getPageFilter() {
         return pageFilter;
     }
 
+    /**
+     * 
+     * @param pageFilter 
+     */
     public void setPageFilter(String pageFilter) {
         this.pageFilter = pageFilter;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getRoot() {
         return root;
     }
 
+    /**
+     * 
+     * @param root 
+     */
     public void setRoot(String root) {
         this.root = root;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getImageFilter() {
         return imageFilter;
     }
 
+    /**
+     * 
+     * @param imageFilter 
+     */
     public void setImageFilter(String imageFilter) {
         this.imageFilter = imageFilter;
     }
-    
-    
-
 }

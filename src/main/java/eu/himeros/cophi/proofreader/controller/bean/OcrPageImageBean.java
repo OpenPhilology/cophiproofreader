@@ -25,9 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -41,89 +39,86 @@ import sun.awt.image.ToolkitImage;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 @ManagedBean(name = "pageImageBean")
-@SessionScoped
-public class OcrPageImageBean implements Serializable {
+@RequestScoped
 
+/**
+ * 
+ */
+public class OcrPageImageBean implements Serializable {
     private static final transient Logger log = Logger.getLogger(OcrPageImageBean.class.getName());
     BufferedImage pageImage;
     @ManagedProperty(value = "#{libraryBean}")
     OcrLibraryBean libraryBean;
-    @ManagedProperty(value="#{pageBean}")
-    OcrPageBean pageBean;
-    static DefaultStreamedContent def;
+    DefaultStreamedContent defStreamContent;
 
-    public static DefaultStreamedContent getDef() {
-        return def;
+    /**
+     * 
+     */
+    public OcrPageImageBean() {
     }
 
-    public static void setDef(DefaultStreamedContent def) {
-        OcrPageImageBean.def = def;
+    /**
+     * 
+     * @return 
+     */
+    public DefaultStreamedContent getDef() {
+        return defStreamContent;
     }
 
-    public OcrPageBean getPageBean() {
-        return pageBean;
+    /**
+     * 
+     * @param def 
+     */
+    public void setDef(DefaultStreamedContent def) {
+        this.defStreamContent = def;
     }
 
-    public void setPageBean(OcrPageBean pageBean) {
-        this.pageBean = pageBean;
-    }
-
+    /**
+     * 
+     * @return 
+     */
     public OcrLibraryBean getLibraryBean() {
         return libraryBean;
     }
 
+    /**
+     * 
+     * @param libraryBean 
+     */
     public void setLibraryBean(OcrLibraryBean libraryBean) {
         this.libraryBean = libraryBean;
     }
 
-    public synchronized DefaultStreamedContent getImage() {
+    /**
+     * 
+     * @return 
+     */
+    public DefaultStreamedContent getImage() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getRenderResponse()) {
             return new DefaultStreamedContent();
         } else {
-            /**
             int lineId = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("lineId"));
-            List<OcrLine> lines=pageBean.getPage().getOcrLines();
-            if(lines==null){
-                System.err.println("LINES NULL");
-            }else{
-                System.err.println("LINES NOT NULL");
+            List<OcrLine> lines = libraryBean.getLibrary().getCurrBook().getCurrPage().getOcrLines();
+            OcrLine line = lines.get(lineId);
+            int x1 = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("x1"));
+            int y1 = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("y1"));
+            int x2 = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("x2"));
+            int y2 = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("y2"));
+            pageImage = null;
+            try {
+                ImageIcon iic = new ImageIcon((String) line.getScan().getImage());
+                pageImage = ((ToolkitImage) iic.getImage()).getBufferedImage();
+                BufferedImage bimg = ((BufferedImage) pageImage).getSubimage(x1, y1, x2 - x1, y2 - y1);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(bimg, "png", os);
+                defStreamContent = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png");
+            } catch (Exception ex) {
+                defStreamContent = null;
+                ex.printStackTrace(System.err);
             }
-            OcrLine line=lines.get(lineId);
-            System.err.println("line:"+line.getId());
-            if(line.getLineScan().getLineScan()==null){
-                System.err.println("####NULL");
-            }else{
-                System.err.println("####NOTNULL:"+line.getLineScan().getLineScan().toString());
-            }
-            def=line.getLineScan().getLineScan();
-            return def;
-        */
-        int lineId = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("lineId"));
-        List<OcrLine> lines=pageBean.getPage().getOcrLines();
-        OcrLine line=lines.get(lineId);
-        int x1=Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("x1"));
-        int y1=Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("y1"));
-        int x2=Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("x2"));
-        int y2=Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("y2"));
-        pageImage = null;
-        try {
-            ImageIcon iic = new ImageIcon((String)line.getScan().getImage());
-            pageImage = ((ToolkitImage) iic.getImage()).getBufferedImage();
-            BufferedImage bimg = ((BufferedImage)pageImage).getSubimage(x1,y1,x2-x1,y2-y1);
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(bimg, "png", os);
-            def = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png");
-        } catch (Exception ex) {
-            def=null;
-            ex.printStackTrace(System.err);
+            return defStreamContent;
         }
-        return def;
-            
-        }
-        
-           
-            
     }
-
+    
 }

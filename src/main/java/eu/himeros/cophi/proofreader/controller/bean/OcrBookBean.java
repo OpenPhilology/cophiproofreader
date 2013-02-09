@@ -38,70 +38,97 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "bookBean")
 @SessionScoped
+
+/**
+ * 
+ */
 public class OcrBookBean implements Serializable {
-    private static final transient Logger log = Logger.getLogger(InitBean.class.getName());
-    int currPageReference;
-    List<OcrPage> ocrPages;
-
-    public OcrBookBean() {
-        currPageReference = 0;
-    }
-
-    public List<OcrPage> getOcrPages() {
-        ocrPages = libraryBean.getLibrary().getCurrBook().getOcrPages();
-        if (ocrPages == null) {
-            initPages();
-        }
-        return ocrPages;
-    }
-
-    public void setOcrPages(List<OcrPage> ocrPages) {
-        libraryBean.getLibrary().getCurrBook().setOcrPages(ocrPages);
-        this.ocrPages = libraryBean.getLibrary().getCurrBook().getOcrPages();
-    }
+    private static final transient Logger logger = Logger.getLogger(OcrBookBean.class.getCanonicalName());
     @ManagedProperty(value = "#{libraryBean}")
     OcrLibraryBean libraryBean;
 
+    /**
+     * 
+     */
+    public OcrBookBean() {
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public List<OcrPage> getOcrPages() {
+        if (libraryBean.getLibrary().getCurrBook().getOcrPages() == null) {
+            initPages();
+        }
+        return libraryBean.getLibrary().getCurrBook().getOcrPages();
+    }
+
+    /**
+     * 
+     * @param ocrPages 
+     */
+    public void setOcrPages(List<OcrPage> ocrPages) {
+        libraryBean.getLibrary().getCurrBook().setOcrPages(ocrPages);
+    }
+
+    /**
+     * 
+     * @return 
+     */
     public OcrLibraryBean getLibraryBean() {
         return libraryBean;
     }
 
+    /**
+     * 
+     * @param libraryBean 
+     */
     public void setLibraryBean(OcrLibraryBean libraryBean) {
         this.libraryBean = libraryBean;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getCurrPageReference() {
-        return currPageReference;
+        return libraryBean.getLibrary().getCurrBook().getCurrPageReference();
     }
 
+    /**
+     * 
+     * @param currPageReference 
+     */
     public void setCurrPageReference(int currPageReference) {
         System.err.println("currPageReference=" + currPageReference);
-        this.currPageReference = currPageReference;
+        libraryBean.getLibrary().getCurrBook().setCurrPageReference(currPageReference);
     }
 
-    public void init() {
-    }
-
+    /**
+     * 
+     */
     private void initPages() {
         OcrLibrary<String, String, String> library = libraryBean.getLibrary();
         OcrBook<?> currBook = library.getCurrBook();
-        BookDirectoryDescriptor bdd = new BookDirectoryDescriptor();
-        bdd.setFilter(library.getPageFilter());
-        System.err.println("######"+library.getRoot()+File.separator+currBook.getOcrBookId());
-        bdd.setRepository(library.getRoot() + File.separator + currBook.getOcrBookId());
-        bdd.initRepository();
-        List<String> references = bdd.getReferences();
-        ocrPages = new ArrayList<>();
+        BookDirectoryDescriptor bookDirDescriptor = new BookDirectoryDescriptor();
+        bookDirDescriptor.setFilter(library.getPageFilter());
+        bookDirDescriptor.setRepository(library.getRoot() + File.separator + currBook.getOcrBookId());
+        bookDirDescriptor.initRepository();
+        List<String> references = bookDirDescriptor.getReferences();
         int i = 0;
         Collections.sort(references);
+        libraryBean.getLibrary().getCurrBook().setOcrPages(new ArrayList<OcrPage>());
         for (String pageId : references) {
             OcrPage page = new OcrPage();
             page.setId(i);
             page.setOcrPageId(pageId);
-            page.setOcrPageLabel("" + (i + 1));
+            String label = pageId.replaceAll("[^1-9]*([1-9][0-9]*)" + library.getPageFilter().replaceAll("\\.", "\\."), "$1");
+            page.setOcrPageLabel(label);
             i++;
-            ocrPages.add(page);
+            libraryBean.getLibrary().getCurrBook().getOcrPages().add(page);
         }
-        libraryBean.getLibrary().getCurrBook().setOcrPages(ocrPages);
+        libraryBean.getLibrary().getCurrBook().setCurrPageReference(0);
     }
+    
 }

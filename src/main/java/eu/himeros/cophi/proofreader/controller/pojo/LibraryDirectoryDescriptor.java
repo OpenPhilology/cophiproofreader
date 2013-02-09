@@ -21,13 +21,16 @@ package eu.himeros.cophi.proofreader.controller.pojo;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class LibraryDirectoryDescriptor extends Descriptor<String, String, String> {
-
+    static final transient Logger logger=Logger.getLogger(LibraryDirectoryDescriptor.class.getName());
     File libraryDir;
 
     @Override
@@ -39,9 +42,8 @@ public class LibraryDirectoryDescriptor extends Descriptor<String, String, Strin
     @Override
     public void initRepository() {
         references = new ArrayList<>();
-        System.err.println(libraryDir.getAbsoluteFile().toString());
+        logger.log(Level.INFO, libraryDir.getAbsoluteFile().toString());
         for (File bookDir : libraryDir.listFiles(new FilenameFilter() {
-
             @Override
             public boolean accept(File dir, String name) {
                 if (filter == null) {
@@ -54,9 +56,9 @@ public class LibraryDirectoryDescriptor extends Descriptor<String, String, Strin
                 }
             }
         })) {
-            //references.add(bookDir.getAbsolutePath());
+            logger.log(Level.INFO,"  {0}",bookDir.getName());
             references.add(bookDir.getName());
-            //FB6
         }
+        Collections.sort(references);
     }
 }
