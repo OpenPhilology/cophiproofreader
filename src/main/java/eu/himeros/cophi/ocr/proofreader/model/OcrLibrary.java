@@ -19,8 +19,7 @@
 
 package eu.himeros.cophi.ocr.proofreader.model;
 
-import eu.himeros.cophi.text.model.LogicalUnit;
-import eu.himeros.cophi.text.model.TextualUnit;
+import eu.himeros.cophi.text.model.Library;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ import java.util.List;
  * provided by get methods.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrLibrary<T1,T2,T3> implements TextualUnit<List<TextualUnit<?>>>{
+public class OcrLibrary<T1,T2,T3> extends Library{
 
     int currBookReference;
     OcrBook<T3> currBook;
@@ -148,16 +147,6 @@ public class OcrLibrary<T1,T2,T3> implements TextualUnit<List<TextualUnit<?>>>{
      */
     public void setCurrBook(OcrBook<T3> currBook) {
         this.currBook = currBook;
-    }
-
-    @Override
-    public List<TextualUnit<?>> getText() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setText(List<TextualUnit<?>> text) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

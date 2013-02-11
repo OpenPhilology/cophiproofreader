@@ -19,10 +19,40 @@
 
 package eu.himeros.cophi.text.model;
 
+import eu.himeros.cophi.core.model.LogicalAtom;
+import eu.himeros.cophi.core.model.PhysicalComponent;
+import eu.himeros.cophi.core.model.TextualUnit;
+
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Word implements TextualUnit, LogicalUnit {
+public abstract class Word implements TextualUnit, LogicalAtom<String> {
+
+    @Override
+    public PhysicalComponent getBackingComponent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setBackingComponent(PhysicalComponent backingComponent) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getContent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setContent(String content) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isAtomic() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 
 }

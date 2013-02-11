@@ -19,14 +19,13 @@
 
 package eu.himeros.cophi.ocr.proofreader.model;
 
-import eu.himeros.cophi.text.model.TextualUnit;
 import java.util.List;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrColumn implements TextualUnit<List<?>>{
+public class OcrColumn{
     int id;
     List<OcrParagraph> ocrParagraphs;
     List<OcrLine> ocrLines;
@@ -77,16 +76,6 @@ public class OcrColumn implements TextualUnit<List<?>>{
      */
     public void setOcrLines(List<OcrLine> ocrLines) {
         this.ocrLines = ocrLines;
-    }
-
-    @Override
-    public List<?> getText() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setText(List<?> text) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

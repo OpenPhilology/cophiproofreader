@@ -17,14 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.himeros.cophi.text.model;
-
-import java.io.Serializable;
+package eu.himeros.cophi.core.model;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Unit extends Serializable{
+public interface LogicalComponent extends Component {
 
 }

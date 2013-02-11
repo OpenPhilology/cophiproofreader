@@ -27,7 +27,7 @@ import eu.himeros.cophi.text.model.Token;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Alternative extends Token {
+public class Alternative extends Token {
 
     protected String text;
     protected String nlp;
@@ -40,7 +40,6 @@ public abstract class Alternative extends Token {
      *
      * @return the text of the alternative.
      */
-    @Override
     public String getText() {
         return text;
     }
@@ -50,9 +49,28 @@ public abstract class Alternative extends Token {
      *
      * @param text the text of the alternative.
      */
-    @Override
     public void setText(String text) {
         this.text = text;
+    }
+    
+    /**
+     * Get content
+     * @return the content
+     */
+    //TODO: getText() should be substituted by this method
+    @Override
+    public String getContent(){
+        return text;
+    }
+
+    /**
+     * Set content
+     * @param content the content 
+     */
+    //TODO: setText() should be substituted by this method
+    @Override
+    public void setContent(String content){
+        text=content;
     }
 
     /**

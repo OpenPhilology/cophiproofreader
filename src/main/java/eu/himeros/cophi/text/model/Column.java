@@ -19,10 +19,31 @@
 
 package eu.himeros.cophi.text.model;
 
+import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.TextualUnit;
+import java.util.Collection;
+import java.util.List;
+
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Column implements TextualUnit, PhysicalUnit {
+public abstract class Column implements TextualUnit, PhysicalComposite<Line, List<Line>> {
 
+    @Override
+    public Collection<Line> getChildren() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setChildren(Collection<Line> collection) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isAtomic() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
 }

@@ -19,10 +19,10 @@
 
 package eu.himeros.cophi.ocr.proofreader.model;
 
-import eu.himeros.cophi.image.model.Scan;
 import eu.himeros.cophi.ocr.model.Ocr;
+import eu.himeros.cophi.text.model.Line;
 import eu.himeros.cophi.text.model.Page;
-import eu.himeros.cophi.text.model.TextualUnit;
+import java.util.Collection;
 import java.util.List;
 import org.jdom2.Document;
 
@@ -30,7 +30,7 @@ import org.jdom2.Document;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrPage implements Page<List<TextualUnit<?>>>, Ocr<PageScan<?>> {
+public class OcrPage extends Page implements Ocr<PageScan<?>> {
 
     int id;
     String ocrPageId;
@@ -170,17 +170,5 @@ public class OcrPage implements Page<List<TextualUnit<?>>>, Ocr<PageScan<?>> {
     public void setHocrDocument(Document hocrDocument) {
         this.hocrDocument = hocrDocument;
     }
-
-    @Override
-    public List<TextualUnit<?>> getText() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setText(List<TextualUnit<?>> text) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    
 
 }

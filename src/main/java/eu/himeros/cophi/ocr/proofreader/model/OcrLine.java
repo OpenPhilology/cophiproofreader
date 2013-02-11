@@ -19,14 +19,16 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.ocr.model.Ocr;
-import eu.himeros.cophi.text.model.TextualUnit;
+import eu.himeros.cophi.text.model.Line;
+import eu.himeros.cophi.text.model.Token;
+import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrLine implements TextualUnit<List<OcrWord>>, Ocr<PageScan<?>> {
+public class OcrLine extends Line implements Ocr<PageScan<?>>{
 
     String id;
     OcrCoords coords;
@@ -90,14 +92,5 @@ public class OcrLine implements TextualUnit<List<OcrWord>>, Ocr<PageScan<?>> {
     public void setScan(PageScan<?> scan) {
         this.scan = scan;
     }
-
-    @Override
-    public List<OcrWord> getText() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setText(List<OcrWord> text) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
 }

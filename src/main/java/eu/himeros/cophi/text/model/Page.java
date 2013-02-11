@@ -19,10 +19,33 @@
 
 package eu.himeros.cophi.text.model;
 
+import eu.himeros.cophi.core.model.PhysicalComponent;
+import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.TextualUnit;
+import java.util.Collection;
+import java.util.List;
+
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Page<T> extends TextualUnit<T>, PhysicalUnit{
+public abstract class Page implements TextualUnit, PhysicalComposite<PhysicalComponent,List<PhysicalComponent>>{
 
+    @Override
+    public Collection<PhysicalComponent> getChildren() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setChildren(Collection<PhysicalComponent> collection) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isAtomic() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
+    
 }

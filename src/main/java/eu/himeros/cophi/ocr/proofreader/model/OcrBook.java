@@ -19,7 +19,9 @@
 
 package eu.himeros.cophi.ocr.proofreader.model;
 
-import eu.himeros.cophi.text.model.TextualUnit;
+import eu.himeros.cophi.text.model.Book;
+import eu.himeros.cophi.text.model.Page;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,8 +29,8 @@ import java.util.List;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: generic must be revised, because T ocrBookId is important - OcrBook<T1,T2> is possible
-public class OcrBook<T> implements TextualUnit<List<TextualUnit<?>>>{
-  
+//public class OcrBook<T> implements TextualUnit<List<TextualUnit<?>>>{
+  public class OcrBook<T> extends Book{
     int id;
     T ocrBookId;
     String ocrBookLabel;
@@ -141,16 +143,29 @@ public class OcrBook<T> implements TextualUnit<List<TextualUnit<?>>>{
         this.ocrBookLabel = ocrBookLabel;
     }
 
+    /**
+     * 
+     * @return 
+     */
+    //TODO: use it instead of other methods!
     @Override
-    public List<TextualUnit<?>> getText() {
+    public Collection<Page> getChildren() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * 
+     * @param collection 
+     */
+    //TODO: use it instead of other methods!
+    @Override
+    public void setChildren(Collection<Page> collection) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void setText(List<TextualUnit<?>> text) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean isAtomic() {
+        return atomic;
     }
-
-
     
 }

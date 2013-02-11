@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.himeros.cophi.text.model;
+package eu.himeros.cophi.core.model;
 
 import java.io.Serializable;
 

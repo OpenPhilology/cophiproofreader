@@ -17,24 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.himeros.cophi.text.model;
+package eu.himeros.cophi.core.model;
+
+import java.util.Collection;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface TextualUnit<T> extends Unit{
+public interface Composite<T extends Component,C extends Collection<T>> extends Component{
+    
+    public final boolean atomic=false;
     
     /**
      * 
      * @return 
      */
-    public T getText();
-
+    public Collection<T> getChildren();
+    
     /**
      * 
-     * @param text 
+     * @param collection 
      */
-    public void setText(T text);
-
+    public void setChildren(Collection<T> collection);
 }

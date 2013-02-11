@@ -17,34 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.himeros.cophi.text.model;
+package eu.himeros.cophi.core.model;
 
-import eu.himeros.cophi.core.model.LogicalComponent;
-import eu.himeros.cophi.core.model.LogicalComposite;
-import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
+import java.io.Serializable;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Paragraph implements TextualUnit, LogicalComposite<LogicalComponent, Collection<LogicalComponent>> {
+public interface TextualUnit extends Serializable {
 
-    @Override
-    public Collection<LogicalComponent> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setChildren(Collection<LogicalComponent> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    
-    
 }
