@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <p:layoutUnit style="text-align: right;" size="10%" position="west" resizable="true" closable="false" collapsible="true">
                         <h:form id="bookForm" prependId="bf">
                             <c:forEach items="#{bookBean.ocrPages}" var="ocrPage">
-                                <p:commandLink immediate="false" oncomplete="window.location.reload();"  style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
+                                <p:commandLink immediate="false" update=":pageForm" oncomplete="window.location.reload();"  style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
                                     <f:setPropertyActionListener value="#{ocrPage.id}" target="#{bookBean.currPageReference}" />
                                 </p:commandLink><h:outputText value="&nbsp;&nbsp;&lt;br/&gt;" escape="false"/>                   
                             </c:forEach>
