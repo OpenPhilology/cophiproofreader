@@ -29,7 +29,7 @@ import java.util.List;
  * provided by get methods.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrLibrary<T1,T2,T3> extends Library{
+public class OcrLibrary<T1,T2,T3> extends Library<OcrBook>{
 
     int currBookReference;
     OcrBook<T3> currBook;

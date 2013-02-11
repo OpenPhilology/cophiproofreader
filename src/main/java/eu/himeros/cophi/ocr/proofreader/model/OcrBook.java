@@ -29,7 +29,7 @@ import java.util.List;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: generic must be revised, because T ocrBookId is important - OcrBook<T1,T2> is possible
-  public class OcrBook<T> extends Book{
+  public class OcrBook<T> extends Book<OcrPage>{
     int id;
     T ocrBookId;
     String ocrBookLabel;

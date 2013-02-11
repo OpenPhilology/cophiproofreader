@@ -30,7 +30,7 @@ import org.jdom2.Document;
  * The textual object related to a page, associated to the scan of the page.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrPage extends Page implements Ocr<PageScan<?>> {
+public class OcrPage extends Page<OcrLine> implements Ocr<PageScan<?>> {
 
     int id;
     String ocrPageId;

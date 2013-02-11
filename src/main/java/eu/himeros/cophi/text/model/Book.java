@@ -27,16 +27,16 @@ import java.util.List;
  * Book is a physical composite of pages.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Book implements TextualUnit, PhysicalComposite<Page, List<Page>> {
+public abstract class Book<T extends Page> implements TextualUnit, PhysicalComposite<T, List<T>> {
     
-    protected List<Page> pages;
+    protected List<T> pages;
     
     /**
      * Get the list of pages.
      * @return the list of pages.
      */
     @Override
-    public List<Page> getChildren() {
+    public List<T> getChildren() {
         return pages;
     }
 
@@ -45,7 +45,7 @@ public abstract class Book implements TextualUnit, PhysicalComposite<Page, List<
      * @param pages the list of pages. 
      */
     @Override
-    public void setChildren(List<Page> pages) {
+    public void setChildren(List<T> pages) {
         this.pages=pages;
     }
 
