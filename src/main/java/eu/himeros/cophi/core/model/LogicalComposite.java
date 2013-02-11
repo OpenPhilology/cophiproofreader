@@ -27,6 +27,6 @@ import java.util.Collection;
  * @see LogicalComponent
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface LogicalComposite<T extends Component,C extends Collection<T>> extends Composite<T,C>, LogicalComponent{
+public interface LogicalComposite<T extends LogicalComponent,C extends Collection<T>> extends Composite<T,C>, LogicalComponent{
 
 }
