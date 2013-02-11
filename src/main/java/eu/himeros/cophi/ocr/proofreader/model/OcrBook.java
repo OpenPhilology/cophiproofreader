@@ -25,11 +25,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * An OcrBook is constituted by OcrPages and provides a bookmark to the current page.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: generic must be revised, because T ocrBookId is important - OcrBook<T1,T2> is possible
-//public class OcrBook<T> implements TextualUnit<List<TextualUnit<?>>>{
   public class OcrBook<T> extends Book{
     int id;
     T ocrBookId;
@@ -39,39 +38,41 @@ import java.util.List;
     List<OcrPage> ocrPages;
     
     /**
-     * 
+     * Default Constructor.
+     * Initialize the pages to null.
      */
+    //TODO: verify if this initialization can be avoided.
     public OcrBook(){
         ocrPages=null;
     }
 
     /**
-     * 
-     * @return 
+     * Get the list of the pages.
+     * @return the list of the pages.
      */
     public List<OcrPage> getOcrPages() {
         return ocrPages;
     }
 
     /**
-     * 
-     * @param ocrPages 
+     * Set the list of the pages.
+     * @param ocrPages the list of the pages.
      */
     public void setOcrPages(List<OcrPage> ocrPages) {
         this.ocrPages = ocrPages;
     }
 
     /**
-     * 
-     * @return 
+     * Get the current page.
+     * @return the current page.
      */
     public OcrPage getCurrPage() {
         return currPage;
     }
 
     /**
-     * 
-     * @param currPage 
+     * Set the current page.
+     * @param currPage the current page.
      */
     public void setCurrPage(OcrPage currPage) {
         currPageReference=currPage.getId();
@@ -79,15 +80,15 @@ import java.util.List;
     }
 
     /**
-     * 
-     * @return 
+     * Get the current page reference, which is an index to the list of pages.
+     * @return the current page reference.
      */
     public int getCurrPageReference() {
         return currPageReference;
     }
 
     /**
-     * 
+     * Set the current page reference, which is an index to the list of pages.
      * @param currPageReference 
      */
     public void setCurrPageReference(int currPageReference) {
@@ -96,73 +97,61 @@ import java.util.List;
     }
 
     /**
-     * 
-     * @return 
+     * Get the id of this book.
+     * @return the id of this book.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     * Set the id of this book.
+     * @param id the id of this book.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocr book id.
+     * Usually it is a string representing a path to this resource.
+     * @return the ocr book id.
      */
+    //TODO: id and ocrBookId have confusing names: refactory is necessary.
     public T getOcrBookId() {
         return ocrBookId;
     }
 
     /**
-     * 
-     * @param ocrBookId 
+     * Set the ocr book id.
+     * @see getOcrBookId()
+     * @param ocrBookId the ocr book id.
      */
     public void setOcrBookId(T ocrBookId) {
         this.ocrBookId = ocrBookId;
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocr book label.
+     * It is the description of the book displayed to the user.
+     * @return the ocr book label.
      */
     public String getOcrBookLabel() {
         return ocrBookLabel;
     }
 
     /**
-     * 
-     * @param ocrBookLabel 
+     * Set the ocr book label.
+     * @param ocrBookLabel the ocr book label.
      */
     public void setOcrBookLabel(String ocrBookLabel) {
         this.ocrBookLabel = ocrBookLabel;
     }
 
     /**
-     * 
-     * @return 
+     * Return false because a book is a Composite.
+     * @return false.
      */
-    //TODO: use it instead of other methods!
-    @Override
-    public Collection<Page> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * 
-     * @param collection 
-     */
-    //TODO: use it instead of other methods!
-    @Override
-    public void setChildren(Collection<Page> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     @Override
     public boolean isAtomic() {
         return atomic;

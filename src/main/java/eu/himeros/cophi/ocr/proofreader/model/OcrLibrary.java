@@ -86,15 +86,15 @@ public class OcrLibrary<T1,T2,T3> extends Library{
     }
 
     /**
-     * 
-     * @return 
+     * Get the book filter, evaluated by an .endsWith(bookFilter) test.
+     * @return the bookFilter.
      */
     public T2 getBookFilter() {
         return bookFilter;
     }
 
     /**
-     * 
+     * Set the book filter, evaluated by an .endsWith(bookFilter) test.
      * @param bookFilter 
      */
     public void setBookFilter(T2 bookFilter) {

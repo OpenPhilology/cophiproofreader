@@ -22,7 +22,7 @@ package eu.himeros.cophi.ocr.proofreader.model;
 import eu.himeros.cophi.image.model.Coords;
 
 /**
- *
+ * This class contains the coordinates of the box on the scan image.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class OcrCoords implements Coords{
@@ -33,12 +33,12 @@ public class OcrCoords implements Coords{
     int y2;
     
     /**
-     * 
+     * Default constructor.
      */
     public OcrCoords(){}
     
     /**
-     * 
+     * Constructor that sets the coordinates.
      * @param x1
      * @param y1
      * @param x2
@@ -52,37 +52,42 @@ public class OcrCoords implements Coords{
     }
     
     /**
-     * 
+     * Constructor that sets the coordinates, parsing a string conformant to the hocr microformat.
      * @param bbox 
      */
     public OcrCoords(String bbox){
         this.bbox=bbox;
-        String[] bboxCoords=bbox.split(" ");
-        this.x1=Integer.parseInt(bboxCoords[1]);
-        this.y1=Integer.parseInt(bboxCoords[2]);
-        this.x2=Integer.parseInt(bboxCoords[3]);
-        this.y2=Integer.parseInt(bboxCoords[4]);
+        parseBbox(bbox);
     }
 
+    private void parseBbox(String bbox){
+        String[] bboxCoords=bbox.split(" ");
+        x1=Integer.parseInt(bboxCoords[1]);
+        y1=Integer.parseInt(bboxCoords[2]);
+        x2=Integer.parseInt(bboxCoords[3]);
+        y2=Integer.parseInt(bboxCoords[4]);
+    }
+    
     /**
-     * 
-     * @return 
+     * Get the bbox string.
+     * @return the bbox.
      */
     public String getBbox() {
         return bbox;
     }
 
     /**
-     * 
+     * Set the bbox string. Automatically set the coordinates.
      * @param bbox 
      */
     public void setBbox(String bbox) {
         this.bbox = bbox;
+        parseBbox(bbox);
     }
 
     /**
-     * 
-     * @return 
+     * Get x1.
+     * @return x1. 
      */
     @Override
     public int getX1() {
@@ -90,7 +95,7 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
+     * Set x1 and update the bbox string.
      * @param x1 
      */
     @Override
@@ -100,8 +105,8 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
-     * @return 
+     * Get x2.
+     * @return x2. 
      */
     @Override
     public int getX2() {
@@ -109,7 +114,7 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
+     * Set x2 and update the bbox string.
      * @param x2 
      */
     @Override
@@ -119,8 +124,8 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
-     * @return 
+     * Get y1.
+     * @return y1. 
      */
     @Override
     public int getY1() {
@@ -128,7 +133,7 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
+     * Set y1 and update the bbox string.
      * @param y1 
      */
     @Override
@@ -138,8 +143,8 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
-     * @return 
+     * Get y2.
+     * @return y2. 
      */
     @Override
     public int getY2() {
@@ -147,7 +152,7 @@ public class OcrCoords implements Coords{
     }
 
     /**
-     * 
+     * Set y2 and update the bbox string.
      * @param y2 
      */
     @Override
@@ -157,7 +162,7 @@ public class OcrCoords implements Coords{
     }
     
     /**
-     * 
+     * Update the bbox string using the current values of the coordinates.
      */
     private void bboxUpdate(){
         StringBuilder sb=new StringBuilder("bbox ");

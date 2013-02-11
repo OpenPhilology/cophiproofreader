@@ -22,7 +22,8 @@ package eu.himeros.cophi.ocr.proofreader.model;
 import eu.himeros.cophi.image.model.Scan;
 
 /**
- *
+ * The scan of the page, with variable coordinates that move the box
+ * on different areas of the pages (lines, single words, etc.)
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class PageScan<T> implements Scan<T,OcrCoords> {
@@ -31,12 +32,12 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     protected OcrCoords coords;
 
     /**
-     * 
+     * Default Constructor.
      */
     public PageScan(){}
     
     /**
-     * 
+     * Constructor that passes the coordinates of an area on the page.
      * @param coords 
      */
     public PageScan(OcrCoords coords){
@@ -44,7 +45,8 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
     
     /**
-     * 
+     * Constructor that passes the image.
+     * Image of the page or simple reference to the image (T can be a String or a File).
      * @param image 
      */
     public PageScan(T image){
@@ -52,9 +54,10 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
     
     /**
-     * 
-     * @param image
-     * @param coords 
+     * Constructor that passes an image (or a reference to the resource)
+     * and the coordinates related to an area of the image.
+     * @param image the image.
+     * @param coords the coordinates.
      */
     public PageScan(T image, OcrCoords coords){
         this.image=image;
@@ -62,8 +65,8 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
     
     /**
-     * 
-     * @return 
+     * Get the coordinates of an area on the image (usually a line, a word, etc.).
+     * @return the coordinates 
      */
     @Override
     public OcrCoords getCoords() {
@@ -71,8 +74,8 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
 
     /**
-     * 
-     * @param coords 
+     * Set the coordinates of an area on the image.
+     * @param coords the coordinates.
      */
     @Override
     public void setCoords(OcrCoords coords) {
@@ -80,8 +83,8 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
 
     /**
-     * 
-     * @return 
+     * Get the image (T can be an Image) or a reference to the image resource (T can be String or File)
+     * @return the image or a reference to the resource.
      */
     @Override
     public T getImage() {
@@ -89,8 +92,8 @@ public class PageScan<T> implements Scan<T,OcrCoords> {
     }
 
     /**
-     * 
-     * @param image 
+     * Set the image or a reference to the image resource.
+     * @param image the image or a reference to the resource.
      */
     @Override
     public void setImage(T image) {

@@ -21,36 +21,37 @@ package eu.himeros.cophi.text.model;
 
 import eu.himeros.cophi.core.model.PhysicalComposite;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
+import java.util.List;
 
 /**
- *
+ * Book is a physical composite of pages.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Book implements TextualUnit, PhysicalComposite<Page, Collection<Page>> {
-
+public abstract class Book implements TextualUnit, PhysicalComposite<Page, List<Page>> {
+    
+    protected List<Page> pages;
+    
     /**
-     * 
-     * @return 
+     * Get the list of pages.
+     * @return the list of pages.
      */
     @Override
-    public Collection<Page> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Page> getChildren() {
+        return pages;
     }
 
     /**
-     * 
-     * @param collection 
+     * Set the list of pages.
+     * @param pages the list of pages. 
      */
     @Override
-    public void setChildren(Collection<Page> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setChildren(List<Page> pages) {
+        this.pages=pages;
     }
- 
 
     /**
-     * 
-     * @return 
+     * Return false.
+     * @return false.
      */
     @Override
     public boolean isAtomic() {

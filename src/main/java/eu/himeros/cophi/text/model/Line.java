@@ -25,24 +25,38 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * A physical composite of tokens.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public abstract class Line implements TextualUnit, PhysicalComposite<Token, List<Token>>{
-
+    
+    protected List<Token> tokens;
+    
+    /**
+     * Get the list of tokens.
+     * @return the list of tokens.
+     */
     @Override
-    public Collection<Token> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Token> getChildren() {
+        return tokens;
     }
 
+    /**
+     * Set the list of tokens.
+     * @param tokens the list of tokens.
+     */
     @Override
-    public void setChildren(Collection<Token> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setChildren(List<Token> tokens) {
+        this.tokens=tokens;
     }
 
+    /**
+     * Return false;
+     * @return 
+     */
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return atomic;
     }
 
     

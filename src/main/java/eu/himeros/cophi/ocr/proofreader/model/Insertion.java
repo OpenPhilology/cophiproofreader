@@ -21,6 +21,7 @@ package eu.himeros.cophi.ocr.proofreader.model;
 
 /**
  * Extends the Alternative, expressing an Insertion.
+ * @see Alternative
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
  //TODO: apply the factory pattern (?)

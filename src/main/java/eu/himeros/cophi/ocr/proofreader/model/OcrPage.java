@@ -27,7 +27,7 @@ import java.util.List;
 import org.jdom2.Document;
 
 /**
- *
+ * The textual object related to a page, associated to the scan of the page.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class OcrPage extends Page implements Ocr<PageScan<?>> {
@@ -42,31 +42,33 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
     List<OcrLine> ocrLines;
 
     /**
-     * 
-     * @return 
+     * Get the id.
+     * @return the id. 
      */
     public int getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     * Set the id.
+     * @param id the id. 
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocr page id.
+     * Usually, a string that identifies the resource.
+     * @return the ocr page id.
      */
+    //TODO: id and ocr page id have confusing names: refactory is necessary.
     public String getOcrPageId() {
         return ocrPageId;
     }
 
     /**
-     * 
+     * Set the ocr page id.
      * @param ocrPageId 
      */
     public void setOcrPageId(String ocrPageId) {
@@ -74,72 +76,78 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocr page label.
+     * This information is displayed to the user.
+     * @return the ocr page label.
      */
     public String getOcrPageLabel() {
         return ocrPageLabel;
     }
 
     /**
-     * 
-     * @param ocrPageLabel 
+     * Set the ocr page label.
+     * @param ocrPageLabel the ocr page label.
      */
     public void setOcrPageLabel(String ocrPageLabel) {
         this.ocrPageLabel = ocrPageLabel;
     }
     
     /**
-     * 
-     * @return 
+     * Get the columns
+     * @return the list of columns.
      */
+    //TODO: this method must be redisigned. Currently it is not used.
+    @Deprecated
     public List<OcrColumn> getOcrColumns() {
         return ocrColumns;
     }
 
     /**
-     * 
-     * @param ocrColumns 
+     * Set the columns.
+     * @param ocrColumns the columns.
      */
+    @Deprecated
     public void setOcrColumns(List<OcrColumn> ocrColumns) {
         this.ocrColumns = ocrColumns;
     }
     
     /**
-     * 
-     * @return 
+     * Get the lines of text.
+     * @return the list of lines of text.
      */
     public List<OcrLine> getOcrLines() {
         return ocrLines;
     }
 
     /**
-     * 
-     * @param ocrLines 
+     * Set the lines of text.
+     * @param ocrLines the list of lines of text.
      */
     public void setOcrLines(List<OcrLine> ocrLines) {
         this.ocrLines = ocrLines;
     }
 
     /**
-     * 
-     * @return 
+     * Get the paragraphs.
+     * @return the list of paragraphs.
      */
+    //TODO: this must be redisigned. currently not used.
     public List<OcrParagraph> getOcrParagraphs() {
         return ocrParagraphs;
     }
 
     /**
-     * 
-     * @param ocrParagraphs 
+     * Set the paragraphs.
+     * @param ocrParagraphs the list of paragraphs. 
      */
+    //TODO: this must be redisigned. currently not used.
     public void setOcrParagraphs(List<OcrParagraph> ocrParagraphs) {
         this.ocrParagraphs = ocrParagraphs;
     }
 
     /**
-     * 
-     * @return 
+     * Get the scan of the page.
+     * @return the scan of the page.
      */
     @Override
     public PageScan getScan() {
@@ -147,8 +155,8 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
     }
 
     /**
-     * 
-     * @param scan 
+     * Set the scan of the page.
+     * @param scan the scan of the page.
      */
     @Override
     public void setScan(PageScan scan) {
@@ -156,16 +164,16 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
     }
 
     /**
-     * 
-     * @return 
+     * Get the hocrDocument.
+     * @return the hocrDocument.
      */
     public Document getHocrDocument() {
         return hocrDocument;
     }
 
     /**
-     * 
-     * @param hocrDocument 
+     * Set the hocrDocument.
+     * @param hocrDocument the hocrDocument.
      */
     public void setHocrDocument(Document hocrDocument) {
         this.hocrDocument = hocrDocument;

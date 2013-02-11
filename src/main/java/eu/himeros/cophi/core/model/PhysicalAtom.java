@@ -20,7 +20,9 @@
 package eu.himeros.cophi.core.model;
 
 /**
- *
+ * The atomic PhysicalComponent.
+ * @see PhysicalComponent
+ * @see Atom
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface PhysicalAtom<T> extends Atom<T>, PhysicalComponent{

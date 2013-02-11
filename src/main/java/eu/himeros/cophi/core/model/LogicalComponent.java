@@ -20,7 +20,10 @@
 package eu.himeros.cophi.core.model;
 
 /**
- *
+ *  * A logical component is a component based on one or more physical components.
+ * A prototypical LogicalComponent is the word, that is based on one or more
+ * tokens (in case of hyphenation, etc.)
+ * @see Component
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface LogicalComponent extends Component {

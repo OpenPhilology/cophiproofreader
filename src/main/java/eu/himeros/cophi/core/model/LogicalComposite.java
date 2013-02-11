@@ -22,7 +22,9 @@ package eu.himeros.cophi.core.model;
 import java.util.Collection;
 
 /**
- *
+ * The non atomic LogicalComponent.
+ * @see Composite
+ * @see LogicalComponent
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface LogicalComposite<T extends Component,C extends Collection<T>> extends Composite<T,C>, LogicalComponent{

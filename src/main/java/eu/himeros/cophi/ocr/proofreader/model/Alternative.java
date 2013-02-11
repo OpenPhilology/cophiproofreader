@@ -21,7 +21,7 @@ package eu.himeros.cophi.ocr.proofreader.model;
 import eu.himeros.cophi.text.model.Token;
 
 /**
- * Abstract class that is extended as Insertion and Deletion. The most probable
+ * Abstract class extended by Insertion and Deletion. The most probable
  * alternative (=highest nlp value) is an insertion; other alternatives are
  * deletions.
  *

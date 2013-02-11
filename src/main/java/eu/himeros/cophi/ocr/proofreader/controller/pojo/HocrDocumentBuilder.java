@@ -27,7 +27,7 @@ import org.jdom2.Element;
 import org.jdom2.Namespace;
 
 /**
- *
+ * A hocr document builder, used to marshall the ocr document in order to store it.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class HocrDocumentBuilder {
@@ -36,46 +36,46 @@ public class HocrDocumentBuilder {
     Namespace xmlns;
 
     /**
-     * 
+     * Default constructor.
      */
     public HocrDocumentBuilder() {
     }
 
     /**
-     * 
-     * @param ocrPage 
+     * Constructs the hocr document using an ocrPage.
+     * @param ocrPage the ocrPage.
      */
     public HocrDocumentBuilder(OcrPage ocrPage) {
         this.ocrPage = ocrPage;
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocrPage;
+     * @return the ocrPage;
      */
     public OcrPage getOcrPage() {
         return ocrPage;
     }
 
     /**
-     * 
-     * @param ocrPage 
+     * Set the ocrPage.
+     * @param ocrPage the ocrPage.
      */
     public void setOcrPage(OcrPage ocrPage) {
         this.ocrPage = ocrPage;
     }
 
     /**
-     * 
-     * @return 
+     * Builds the document using an ocrPage previously stored;
+     * @return the resulting hocr document.
      */
     public Document build() {
         return build(ocrPage);
     }
 
     /**
-     * 
-     * @param ocrPage
+     * Builds the document using an ocrPage.
+     * @param ocrPage the ocrPage.
      * @return 
      */
     public Document build(OcrPage ocrPage) {
@@ -85,9 +85,9 @@ public class HocrDocumentBuilder {
     }
     
     /**
-     * 
-     * @param hocrDocument
-     * @return 
+     * Builds the hocr document, extracting the header from the old hocr document.
+     * @param the old hocrDocument
+     * @return the new ohocrDocument
      */
     public Document build(Document hocrDocument){
         Element root = hocrDocument.getRootElement();
@@ -107,9 +107,9 @@ public class HocrDocumentBuilder {
     }
 
     /**
-     * 
+     * Makes the line.
      * @param ocrLine
-     * @return 
+     * @return the related element.
      */
     private Element makeOcrLineEl(OcrLine ocrLine) {
         Element ocrLineEl = new Element("span", xmlns);
@@ -122,9 +122,9 @@ public class HocrDocumentBuilder {
     }
 
     /**
-     * 
+     * Makes the token.
      * @param ocrWord
-     * @return 
+     * @return the related element.
      */
     private Element makeOcrWordEl(OcrWord ocrWord) {
         Element ocrWordEl = new Element("span", xmlns);
@@ -147,9 +147,9 @@ public class HocrDocumentBuilder {
     }
 
     /**
-     * 
+     * Makes the alternative deletion.
      * @param alternativeDeletion
-     * @return 
+     * @return an alternative deletion.
      */
     private Element makeAlternativeDeletionEl(Deletion alternativeDeletion) {
         Element alternativeDeletionEl = new Element("del",xmlns);

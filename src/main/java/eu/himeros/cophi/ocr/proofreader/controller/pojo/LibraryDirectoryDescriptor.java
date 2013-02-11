@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Describes the content of a library, providing references to the books.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class LibraryDirectoryDescriptor extends Descriptor<String, String, String> {
@@ -35,8 +35,8 @@ public class LibraryDirectoryDescriptor extends Descriptor<String, String, Strin
     File libraryDir;
 
     /**
-     * 
-     * @param libraryDirName 
+     * Set the repository.
+     * @param libraryDirName the library directory name. 
      */
     @Override
     public void setRepository(String libraryDirName) {
@@ -45,7 +45,8 @@ public class LibraryDirectoryDescriptor extends Descriptor<String, String, Strin
     }
 
     /**
-     * 
+     * Initialize the repository, reading the references to the books, accessible
+     * by setter and getter of the superclass.
      */
     @Override
     public void initRepository() {

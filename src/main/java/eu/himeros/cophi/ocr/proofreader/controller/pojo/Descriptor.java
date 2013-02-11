@@ -21,7 +21,7 @@ package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 import java.util.List;
 
 /**
- *
+ * Describes resources.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public abstract class Descriptor<T1, T2, T3> {
@@ -31,32 +31,56 @@ public abstract class Descriptor<T1, T2, T3> {
     List<T3> references;
 
     /**
-     * 
-     * @return 
+     * Get the repository.
+     * @return the repository.
      */
     public T1 getRepository() {
         return repository;
     }
 
+    /**
+     * Set the repository.
+     * @param repository the repository.
+     */
     public void setRepository(T1 repository) {
         this.repository = repository;
     }
 
+    /**
+     * Get the filter to test which components must be loaded.
+     * @return the filter.
+     */
     public T2 getFilter() {
         return filter;
     }
 
+    /**
+     * Set the filter to test which components must be loaded.
+     * @param filter 
+     */
     public void setFilter(T2 filter) {
         this.filter = filter;
     }
 
+    /**
+     * Get the references to the resources.
+     * E.g. file names.
+     * @return 
+     */
     public List<T3> getReferences() {
         return references;
     }
 
+    /**
+     * Set the references to the resources.
+     * @param references the references.
+     */
     public void setReferences(List<T3> references) {
         this.references = references;
     }
     
+    /**
+     * Initialize the repository
+     */
     public abstract void initRepository();
 }

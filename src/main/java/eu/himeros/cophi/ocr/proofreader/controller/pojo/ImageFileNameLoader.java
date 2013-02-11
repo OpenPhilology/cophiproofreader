@@ -25,14 +25,14 @@ import javax.swing.ImageIcon;
 import sun.awt.image.ToolkitImage;
 
 /**
- *
+ * Loads an image from an image file name.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class ImageFileNameLoader implements ImageLoader<String> {
     BufferedImage pageImage;
 
     /**
-     * 
+     * Get the buffered image of the page.
      * @return 
      */
     public BufferedImage getPageImage() {
@@ -40,7 +40,7 @@ public class ImageFileNameLoader implements ImageLoader<String> {
     }
 
     /**
-     * 
+     * Set the buffered image of the page.
      * @param pageImage 
      */
     public void setPageImage(BufferedImage pageImage) {
@@ -48,7 +48,7 @@ public class ImageFileNameLoader implements ImageLoader<String> {
     }
     
     /**
-     * 
+     * Loads the Image from an image file name.
      * @param imgFileName
      * @return 
      */

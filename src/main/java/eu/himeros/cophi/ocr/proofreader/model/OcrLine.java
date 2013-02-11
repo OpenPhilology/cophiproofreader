@@ -20,12 +20,10 @@ package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.ocr.model.Ocr;
 import eu.himeros.cophi.text.model.Line;
-import eu.himeros.cophi.text.model.Token;
-import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * The line of text associated to the page scan.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class OcrLine extends Line implements Ocr<PageScan<?>>{
@@ -36,57 +34,58 @@ public class OcrLine extends Line implements Ocr<PageScan<?>>{
     PageScan<?> scan;
 
     /**
-     *
-     * @return
+     * Get the id.
+     * @return the id.
      */
     public String getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
+     * Set the id.
+     * @param id the id.
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     *
-     * @return
+     * Get the coordinates.
+     * @return the coordinates.
      */
     public OcrCoords getCoords() {
         return coords;
     }
 
     /**
-     *
-     * @return
+     * Get the list of words.
+     * @return the list of words.
      */
     public List<OcrWord> getOcrWords() {
         return ocrWords;
     }
 
     /**
-     *
-     * @param ocrWords
+     * Set the list of words.
+     * @param ocrWords the list of words.
      */
     public void setOcrWords(List<OcrWord> ocrWords) {
         this.ocrWords = ocrWords;
     }
 
     /**
-     *
-     * @return
+     * Get the scan of the page with the coordinates of the current line.
+     * @return the scan of the page.
      */
+    //TODO: verify if this approach, with a scan of the page of type PageScan, is correct.
     @Override
     public PageScan<?> getScan() {
         return scan;
     }
 
     /**
-     *
-     * @param scan
+     * Set the scan of the page with the coordinates of the current line.
+     * @param scan the scan of the page.
      */
     @Override
     public void setScan(PageScan<?> scan) {

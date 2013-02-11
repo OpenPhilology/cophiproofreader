@@ -27,31 +27,55 @@ import eu.himeros.cophi.core.model.TextualUnit;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Word implements TextualUnit, LogicalAtom<String> {
+public abstract class Word<T> implements TextualUnit, LogicalAtom<T> {
 
+    protected PhysicalComponent backingComponent;
+    protected T content;
+    
+    /**
+     * Get the physical component this logical component is based on.
+     * @return the backing component.
+     */
     @Override
     public PhysicalComponent getBackingComponent() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return backingComponent;
     }
 
+    /**
+     * Set the physical component this logical component is based on.
+     * @param backingComponent the backing component.
+     */
     @Override
     public void setBackingComponent(PhysicalComponent backingComponent) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.backingComponent=backingComponent;
     }
 
+    /**
+     * Get the content of this word. It can be a simple string, but it can be
+     * a complex structures with linguistic analyses.
+     * @return the content of this word.
+     */
     @Override
-    public String getContent() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public T getContent() {
+        return content;
     }
 
+    /**
+     * Set the content of this word.
+     * @param content the content of this word.
+     */
     @Override
-    public void setContent(String content) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setContent(T content) {
+        this.content=content;
     }
 
+    /**
+     * Return true.
+     * @return true.
+     */
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return atomic;
     }
     
 

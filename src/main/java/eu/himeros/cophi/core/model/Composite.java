@@ -22,7 +22,8 @@ package eu.himeros.cophi.core.model;
 import java.util.Collection;
 
 /**
- *
+ * This is the Composite in the Composite pattern.
+ * It is composed by a Collection of Components of Type T.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Composite<T extends Component,C extends Collection<T>> extends Component{
@@ -30,14 +31,14 @@ public interface Composite<T extends Component,C extends Collection<T>> extends 
     public final boolean atomic=false;
     
     /**
-     * 
-     * @return 
+     * Get the collection of components.
+     * @return the collection of components.
      */
-    public Collection<T> getChildren();
+    public C getChildren();
     
     /**
-     * 
-     * @param collection 
+     * Set the collection of components.
+     * @param collection the collection of components.
      */
-    public void setChildren(Collection<T> collection);
+    public void setChildren(C collection);
 }

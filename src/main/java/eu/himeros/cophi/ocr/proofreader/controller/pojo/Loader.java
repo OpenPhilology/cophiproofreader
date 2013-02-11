@@ -20,13 +20,13 @@
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
 /**
- *
+ * A generic loader.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Loader<T> {
     
     /**
-     * 
+     * Load an object from an origin.
      * @param origin
      * @return 
      */

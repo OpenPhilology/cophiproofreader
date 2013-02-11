@@ -22,13 +22,17 @@ package eu.himeros.cophi.core.model;
 import java.io.Serializable;
 
 /**
- *
+ * This is the Component in the Composite pattern.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Component extends Serializable{
    
     /**
-     * 
+     * Determine whether the component is atomic (a leaf) or not (a composite).
+     * Subinterfaces Atom and Composite provide a final boolean,
+     * which is true for Atom and false for Composite.
+     * Interfaces and Classes that extend or implement them must override
+     * this method, returning the atomic value.
      * @return 
      */
     public boolean isAtomic();

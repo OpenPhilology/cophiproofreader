@@ -22,29 +22,77 @@ package eu.himeros.cophi.text.model;
 import eu.himeros.cophi.core.model.LogicalComponent;
 import eu.himeros.cophi.core.model.LogicalComposite;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
+import java.util.List;
 
 /**
- *
+ * Logical partition of a textual unit;
+ * Section can contain recoursively (sub)sections.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Section implements TextualUnit, LogicalComposite<LogicalComponent, Collection<LogicalComponent>> {
+public abstract class Section implements TextualUnit, LogicalComposite<LogicalComponent, List<LogicalComponent>> {
 
+    protected List<LogicalComponent> components;
+    protected String typeDescription;
+    protected int level;
+    
+    /**
+     * Get the list of logical components.
+     * @return the list of logical components.
+     */
     @Override
-    public Collection<LogicalComponent> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<LogicalComponent> getChildren() {
+        return components;
     }
 
+    /**
+     * Set the list of logical components.
+     * @param components the list of logical components.
+     */
     @Override
-    public void setChildren(Collection<LogicalComponent> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setChildren(List<LogicalComponent> components) {
+        this.components=components;
     }
-
+    
+    /*
+     * Return false.
+     */
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return atomic;
     }
 
+    /**
+     * Get the nesting level: section 0, subsection 1, subsubsection 2, etc.
+     * @return the nesting level.
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * Set the nesting level.
+     * @param level the nesting level.
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    /**
+     * Get the type description. E.g.: section, or subsection, etc.
+     * @return the type description.
+     */
+    public String getTypeDescription() {
+        return typeDescription;
+    }
+
+    /**
+     * Set the type description.
+     * @param typeDescription the type description.
+     */
+    public void setTypeDescription(String typeDescription) {
+        this.typeDescription = typeDescription;
+    }
+    
     
     
 }

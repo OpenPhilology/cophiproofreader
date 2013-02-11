@@ -22,27 +22,31 @@ package eu.himeros.cophi.text.model;
 import eu.himeros.cophi.core.model.LogicalComponent;
 import eu.himeros.cophi.core.model.LogicalComposite;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
+import java.util.List;
 
 /**
- *
+ * A logical composite of subunits.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Paragraph implements TextualUnit, LogicalComposite<LogicalComponent, Collection<LogicalComponent>> {
+@Deprecated
+//This class should be eliminated
+public abstract class Paragraph implements TextualUnit, LogicalComposite<LogicalComponent, List<LogicalComponent>> {
 
+    protected List<LogicalComponent> components;
+    
     @Override
-    public Collection<LogicalComponent> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<LogicalComponent> getChildren() {
+        return components;
     }
 
     @Override
-    public void setChildren(Collection<LogicalComponent> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setChildren(List<LogicalComponent> components) {
+        this.components=components;
     }
-
+    
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     

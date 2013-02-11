@@ -22,7 +22,9 @@ package eu.himeros.cophi.core.model;
 import java.util.Collection;
 
 /**
- *
+ * The non atomic PhysicalComponent.
+ * @see Composite
+ * @see PhysicalComponent
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface PhysicalComposite<T extends PhysicalComponent,C extends Collection<T>> extends Composite<T,C>, PhysicalComponent {

@@ -20,20 +20,22 @@
 package eu.himeros.cophi.core.model;
 
 /**
- *
+ * The atomic LogicalComponent.
+ * @see Atom
+ * @see LogicalComponent
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface LogicalAtom<T> extends Atom<T>, LogicalComponent {
     
     /**
-     * 
-     * @return 
+     * Get the physical component this logical component is based on.
+     * @return the physical component.
      */
     public PhysicalComponent getBackingComponent();
     
     /**
-     * 
-     * @param backingComponent 
+     * Set the physical component this logical component is based on.
+     * @param backingComponent the physical component.
      */
     public void setBackingComponent(PhysicalComponent backingComponent);
 }

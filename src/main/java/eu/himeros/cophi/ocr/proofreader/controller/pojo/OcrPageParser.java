@@ -18,13 +18,7 @@
  */
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
-import eu.himeros.cophi.ocr.proofreader.model.OcrLine;
-import eu.himeros.cophi.ocr.proofreader.model.OcrCoords;
-import eu.himeros.cophi.ocr.proofreader.model.Insertion;
-import eu.himeros.cophi.ocr.proofreader.model.Deletion;
-import eu.himeros.cophi.ocr.proofreader.model.OcrPage;
-import eu.himeros.cophi.ocr.proofreader.model.OcrWord;
-import eu.himeros.cophi.ocr.proofreader.model.PageScan;
+import eu.himeros.cophi.ocr.proofreader.model.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +34,7 @@ import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 
 /**
- *
+ * Parser the hocr document and creates an ocr page.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class OcrPageParser implements Serializable {
@@ -51,78 +45,78 @@ public class OcrPageParser implements Serializable {
     ImageFileNameLoader il=new ImageFileNameLoader();
 
     /**
-     * 
+     * Default Constructor.
      */
     public OcrPageParser() {
     }
     
     /**
-     * 
-     * @param ocrPage 
+     * Constructor that passes an ocrPage.
+     * @param ocrPage the ocrPage.
      */
     public OcrPageParser(OcrPage ocrPage){
         this.ocrPage=ocrPage;
     }
 
     /**
-     * 
-     * @param hocrDocument 
+     * Constructor that passes an hocrDocument.
+     * @param hocrDocument the hocrDocument.
      */
     public OcrPageParser(Document hocrDocument) {
         ocrPage.setHocrDocument(hocrDocument);
     }
 
     /**
-     * 
-     * @return 
+     * Get the ocrPage.
+     * @return the ocrPage.
      */
     public OcrPage getOcrPage() {
         return ocrPage;
     }
 
     /**
-     * 
-     * @param ocrPage 
+     * Set the ocrPage.
+     * @param ocrPage the ocrPage.
      */
     public void setOcrPage(OcrPage ocrPage) {
         this.ocrPage = ocrPage;
     }
 
     /**
-     * 
-     * @param hocrDocument 
-     */
-    public void setHocrDocument(Document hocrDocument) {
-        ocrPage.setHocrDocument(hocrDocument);
-    }
-
-    /**
-     * 
-     * @return 
+     * Get the hocrDocument.
+     * @return the hocrDocument.
      */
     public Document getHocrDocument() {
         return ocrPage.getHocrDocument();
     }
 
     /**
-     * 
-     * @return 
+     * Set the hocrDocuemnt.
+     * @param hocrDocument the hocrDocument.
+     */
+    public void setHocrDocument(Document hocrDocument) {
+        ocrPage.setHocrDocument(hocrDocument);
+    }
+
+    /**
+     * Get the absolute path to the resource.
+     * @return the path.
      */
     public String getPath() {
         return path;
     }
 
     /**
-     * 
-     * @param path 
+     * Set the absolute path to the resource.
+     * @param path the path.
      */
     public void setPath(String path) {
         OcrPageParser.path = path;
     }
     
     /**
-     * 
-     * @return
+     * Parses the ocrPage previously stored.
+     * @return the ocrPage.
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException 
@@ -132,9 +126,9 @@ public class OcrPageParser implements Serializable {
     }
     
     /**
-     * 
-     * @param hocrFileName
-     * @return
+     * Parser the hocr document and create an ocrPage.
+     * @param hocrFileName the hocr file name.
+     * @return the ocrPage.
      * @throws JDOMException
      * @throws IOException
      * @throws ClassNotFoundException
@@ -148,10 +142,10 @@ public class OcrPageParser implements Serializable {
     }
     
     /**
-     * 
-     * @param path
-     * @param hocrDocument
-     * @param ocrPage
+     * Creates an ocrPage extracting information both from the hocrDocuemnt and from an old ocrPage.
+     * @param path the absolute path to the resource.
+     * @param hocrDocument the hocr document.
+     * @param ocrPage the ocrPage.
      * @return
      * @throws FileNotFoundException
      * @throws ClassNotFoundException
@@ -165,9 +159,9 @@ public class OcrPageParser implements Serializable {
     }
 
     /**
-     * 
+     * Parses an hocrDocuemnt, creating an ocrPage.
      * @param hocrDocument
-     * @return
+     * @return the ocrPage.
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException 
@@ -187,9 +181,9 @@ public class OcrPageParser implements Serializable {
     }
 
     /**
-     * 
+     * Parser an ocr line element and maps it on an OcrLine object.
      * @param ocrLineEl
-     * @return 
+     * @return the ocrLine.
      */
     private OcrLine parseOcrLine(Element ocrLineEl) {
         OcrLine ocrLine = new OcrLine();       
@@ -204,9 +198,10 @@ public class OcrPageParser implements Serializable {
     }
 
     /**
+     * Parses an ocr word element and maps it on an OcrWord object.
      * 
-     * @param ocrWordEl
-     * @return 
+     * @param ocrWordEl the ocr word element.
+     * @return the ocrWord.
      */
     private OcrWord parseOcrWord(Element ocrWordEl) {
         OcrWord ocrWord = new OcrWord();
@@ -228,9 +223,9 @@ public class OcrPageParser implements Serializable {
     }
     
     /**
-     * 
-     * @param ocrAlternativeEl
-     * @return 
+     * Parses an ocr alternative element and maps it on an Insertion.
+     * @param ocrAlternativeEl the ocr alternative element.
+     * @return the Insertion.
      */
     private Insertion parseAlternativeInsertion(Element ocrAlternativeEl){
         Insertion alternativeInsertion=new Insertion();
@@ -240,9 +235,9 @@ public class OcrPageParser implements Serializable {
     }
     
     /**
-     * 
-     * @param ocrAlternativeEl
-     * @return 
+     * Parses an ocr alternative element adn maps it on a Deletion.
+     * @param ocrAlternativeEl the ocr alternative element.
+     * @return the Deletion.
      */
     private Deletion parseAlternativeDeletion(Element ocrAlternativeEl){
         Deletion alternativeDeletion=new Deletion();

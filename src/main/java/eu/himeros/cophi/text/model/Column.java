@@ -25,21 +25,35 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * A physical composite of textual subunits
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
+//TODO: this class needs redisign.
+@Deprecated
 public abstract class Column implements TextualUnit, PhysicalComposite<Line, List<Line>> {
-
+    
+    /**
+     * @see PhysicalComposite
+     * @return 
+     */
     @Override
-    public Collection<Line> getChildren() {
+    public List<Line> getChildren() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * @see PhysicalComposite
+     * @param lines
+     */
     @Override
-    public void setChildren(Collection<Line> collection) {
+    public void setChildren(List<Line> lines) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public boolean isAtomic() {
         throw new UnsupportedOperationException("Not supported yet.");

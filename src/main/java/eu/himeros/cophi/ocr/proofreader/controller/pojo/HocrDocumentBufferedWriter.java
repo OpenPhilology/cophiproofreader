@@ -25,15 +25,15 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 /**
- *
+ * A document saver that uses a buffered writer to save the hocrDocument.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class HocrDocumentBufferedWriter implements HocrDocumentSaver<BufferedWriter> {
 
     /**
-     * 
-     * @param hocrDocument
-     * @param bw 
+     * Saves the hocrDocument
+     * @param hocrDocument the hocr document.
+     * @param bw the buffered writer.
      */
     @Override
     public void save(Document hocrDocument, BufferedWriter bw) {
@@ -46,9 +46,9 @@ public class HocrDocumentBufferedWriter implements HocrDocumentSaver<BufferedWri
     }
     
     /**
-     * 
-     * @param hocrDocument
-     * @param outFileName
+     * Save the hocrDocument using an output file name.
+     * @param hocrDocument the hocr document.
+     * @param outFileName the output file name.
      * @throws FileNotFoundException
      * @throws UnsupportedEncodingException 
      */
@@ -57,7 +57,7 @@ public class HocrDocumentBufferedWriter implements HocrDocumentSaver<BufferedWri
     }
 
     /**
-     * 
+     * Saves an hocr document, extracting it from an ocrPage and saving it by a BufferedWriter.
      * @param ocrPage
      * @param destination 
      */

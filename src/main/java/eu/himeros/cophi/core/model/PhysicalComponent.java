@@ -20,9 +20,15 @@
 package eu.himeros.cophi.core.model;
 
 /**
- *
+ * A physical component is the uninterpreted unit on which logical components
+ * are based. A prototypical physical component is a token, a mere sequence of
+ * characters divided by separators. words are based on tokens: a word can be
+ * constituted by two hyphenated parts, etc.
+ * @see Component
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
+ //TODO: Provide a non-circular definition of physical and logical components in comments.
+
 public interface PhysicalComponent extends Component  {
 
 }

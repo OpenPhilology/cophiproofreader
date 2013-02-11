@@ -21,24 +21,25 @@ package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
 import eu.himeros.cophi.ocr.proofreader.model.OcrPage;
 import org.jdom2.Document;
+
 /**
- *
+ * A saver that saves a DOM document
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface HocrDocumentSaver<T> extends Saver<Document,T>{
     
     /**
-     * 
-     * @param hocrDocument
-     * @param destination 
+     * Save an hocr document.
+     * @param hocrDocument the hocrDocument.
+     * @param destination the destination of the hocrDocument (e.g. a file name, etc.)
      */
     @Override
     public void save(Document hocrDocument, T destination);
     
     /**
-     * 
-     * @param ocrPage
-     * @param destination 
+     * Save an ocrPage. 
+     * @param ocrPage the ocrPage.
+     * @param destination the destination.
      */
     public void save(OcrPage ocrPage, T destination);
 }

@@ -35,7 +35,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import sun.awt.image.ToolkitImage;
 
 /**
- *
+ * This bean loads and renders the line images of the page. 
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 @ManagedBean(name = "pageImageBean")
@@ -55,40 +55,44 @@ public class OcrPageImageBean implements Serializable {
     }
 
     /**
-     * 
-     * @return 
+     * Get the DefaultStreamedContent that represents the line image.
+     * @return the DefaultStreamedContent.
      */
     public DefaultStreamedContent getDef() {
         return defStreamContent;
     }
 
     /**
-     * 
-     * @param def 
+     * Set the DefaultStreamedContent that represents the line image.
+     * @param def the DefaultStreamedContent.
      */
     public void setDef(DefaultStreamedContent def) {
         this.defStreamContent = def;
     }
 
     /**
-     * 
-     * @return 
+     * Get the library bean injected in this bean.
+     * (Necessary for injection).
+     * @return the library bean.
      */
     public OcrLibraryBean getLibraryBean() {
         return libraryBean;
     }
 
     /**
-     * 
-     * @param libraryBean 
+     * Set the library bean injected in this bean.
+     * (Necessary for injection).
+     * @param libraryBean the library bean.
      */
     public void setLibraryBean(OcrLibraryBean libraryBean) {
         this.libraryBean = libraryBean;
     }
 
     /**
-     * 
-     * @return 
+     * Provides the line image by receiving the coordinates of the box on the page from the web page.
+     * This method is called in two different phases: in the first one it renders an empty box,
+     * in the second one it renders the actual image.
+     * @return the image.
      */
     public DefaultStreamedContent getImage() {
         FacesContext context = FacesContext.getCurrentInstance();

@@ -21,27 +21,40 @@ package eu.himeros.cophi.text.model;
 
 import eu.himeros.cophi.core.model.PhysicalAtom;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- *
+ * The physical textual atom.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public abstract class Token implements TextualUnit, PhysicalAtom<String> {
-
+    
+    protected String content; 
+    
+    /**
+     * Get the string that represents this token.
+     * @return the content.
+     */
     @Override
     public String getContent() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return content;
     }
 
+    /**
+     * Set the string that represents this token.
+     * @param content the content.
+     */
     @Override
     public void setContent(String content) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.content=content;
     }
 
+    /**
+     * Return true.
+     * @return true.
+     */
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return atomic;
     }
     
     

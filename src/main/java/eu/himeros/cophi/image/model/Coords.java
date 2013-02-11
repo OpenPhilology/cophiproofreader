@@ -22,56 +22,56 @@ package eu.himeros.cophi.image.model;
 import java.io.Serializable;
 
 /**
- *
+ * Coords provides the coordinates of a box.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Coords extends Serializable{
     
     /**
-     * 
-     * @return 
+     * Get the x1 coordinate.
+     * @return the x1 coordinate.
      */
     public int getX1();
     
     /**
-     * 
-     * @param x1 
+     * Set the x1 coordinate.
+     * @param x1 the x1 coordinate.
      */
     public void setX1(int x1);
     
     /**
-     * 
-     * @return 
+     * Get the y1 coordinate.
+     * @return the y1 coordinate.
      */
     public int getY1();
     
     /**
-     * 
-     * @param y1 
+     * Set the y1 coordinate.
+     * @param y1 the y1 coordinate.
      */
     public void setY1(int y1);
     
     /**
-     * 
-     * @return 
+     * Get the x2 coordinate.
+     * @return the x2 coordinate.
      */
     public int getX2();
     
     /**
-     * 
-     * @param x2 
+     * Set the x2 coordinate.
+     * @param x2 the x2 coordinate.
      */
     public void setX2(int x2);
     
     /**
-     * 
-     * @return 
+     * Get the y2 coordinate.
+     * @return the y2 coordinate.
      */
     public int getY2();
     
     /**
-     * 
-     * @param y2 
+     * Set the y2 coordinate.
+     * @param y2 the y2 coordinate.
      */
     public void setY2(int y2);    
     

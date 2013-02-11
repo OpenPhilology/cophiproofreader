@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Manages descriptions of the content of a book, represented by references to the resources.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public class BookDirectoryDescriptor extends Descriptor<String,String,String> {
@@ -34,8 +34,8 @@ public class BookDirectoryDescriptor extends Descriptor<String,String,String> {
     File bookDir;
 
     /**
-     * 
-     * @param bookDirName 
+     * Set the reference to the book resource.
+     * @param bookDirName the reference to the book resource.
      */
     @Override
     public void setRepository(String bookDirName) {
@@ -44,7 +44,8 @@ public class BookDirectoryDescriptor extends Descriptor<String,String,String> {
     }
     
     /**
-     * 
+     * Set the references to the file names of the pages.
+     * References are accessible by the setter and getter declared in the superclass.
      */
     @Override
     public void initRepository(){

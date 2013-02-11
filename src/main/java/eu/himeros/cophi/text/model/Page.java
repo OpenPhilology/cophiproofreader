@@ -26,24 +26,39 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * A physical composite of physical components (usually lines, or paragraphs, or columns).
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
+//TODO: Maybe redisign is necessary
 public abstract class Page implements TextualUnit, PhysicalComposite<PhysicalComponent,List<PhysicalComponent>>{
+    
+    protected List<PhysicalComponent> components;
 
+    /**
+     * Get the list of physical components
+     * @return the components.
+     */
     @Override
-    public Collection<PhysicalComponent> getChildren() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<PhysicalComponent> getChildren() {
+        return components;
     }
 
+    /**
+     * Set the list of physical components.
+     * @param components the components.
+     */
     @Override
-    public void setChildren(Collection<PhysicalComponent> collection) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setChildren(List<PhysicalComponent> components) {
+        this.components=components;
     }
 
+    /**
+     * Return false.
+     * @return false.
+     */
     @Override
     public boolean isAtomic() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return atomic;
     }
 
     

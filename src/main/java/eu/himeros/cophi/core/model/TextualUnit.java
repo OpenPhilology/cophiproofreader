@@ -22,7 +22,7 @@ package eu.himeros.cophi.core.model;
 import java.io.Serializable;
 
 /**
- *
+ * Every textual components should implement this interface or its subinterfaces.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface TextualUnit extends Serializable {

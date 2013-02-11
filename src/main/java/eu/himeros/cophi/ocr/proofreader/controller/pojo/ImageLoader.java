@@ -22,15 +22,15 @@ package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 import java.awt.Image;
 
 /**
- *
+ * A generic image loader that loads an image from an origin of type T.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface ImageLoader<T> extends Loader<T>{
     
     /**
-     * 
-     * @param origin
-     * @return 
+     * Load the image.
+     * @param origin the origin.
+     * @return the Image.
      */
     @Override
     public Image load(T origin);

@@ -19,14 +19,16 @@
 
 package eu.himeros.cophi.ocr.proofreader.model;
 
-import java.io.Serializable;
+import eu.himeros.cophi.ocr.model.Ocr;
+import eu.himeros.cophi.text.model.Word;
 import java.util.List;
 
 /**
- *
+ * An ocr word, despite its name, is a token, a physical component.
+ * The name word derives by the hocr microformat.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrWord implements Serializable{
+public class OcrWord extends Word implements Ocr<PageScan<?>>{
 
     String id;
     Insertion insertion;
@@ -34,65 +36,71 @@ public class OcrWord implements Serializable{
     PageScan<?> scan;
 
     /**
-     * 
-     * @return 
+     * Get the id.
+     * @return the id.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     * Set the id.
+     * @param id the id.
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return 
+     * Get the list of alternatives but the main one.
+     * @see getInsertions()
+     * @return the list of alternatives but the main one. 
      */
     public List<Deletion> getDeletions() {
         return deletions;
     }
     
     /**
-     * 
-     * @param deletions 
+     * Set the list of alternatives but the main one.
+     *
+     * @param the list of alternatives but the main one. 
      */
     public void setDeletions(List<Deletion> deletions) {
         this.deletions = deletions;
     }
 
     /**
-     * 
-     * @return 
+     * Get the main alternative.
+     * Usually the main alternative is the ocr output, but it can be the automatic
+     * correction with the highest score, etc.
+     * @return the main alternative
      */
     public Insertion getInsertion() {
         return insertion;
     }
 
     /**
-     * 
-     * @param insertion 
+     * Set the main alternative.
+     * @param the main alternative.
      */
     public void setInsertion(Insertion insertion) {
         this.insertion = insertion;
     }
 
     /**
-     * 
-     * @return 
+     * Get the scan of the page with the coordinates related to this word.
+     * @return the scan of the page.
      */
+    @Override
     public PageScan<?> getScan() {
         return scan;
     }
 
     /**
-     * 
-     * @param scan 
+     * Set the scan of the page with the coordinates related to this word.
+     * @param scan the scan of the page.
      */
+    @Override
     public void setScan(PageScan<?> scan) {
         this.scan = scan;
     }

@@ -22,15 +22,15 @@ package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 import org.jdom2.Document;
 
 /**
- *
+ * A loader that return a DOM document.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface HocrDocumentLoader<T> extends Loader<T>{
 
     /**
-     * 
+     * Lod a resource and make a DOM document.
      * @param origin
-     * @return 
+     * @return the DOM document.
      */
     @Override
     public Document load(T origin);

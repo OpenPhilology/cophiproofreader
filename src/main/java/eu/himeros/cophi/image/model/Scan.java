@@ -20,32 +20,38 @@
 package eu.himeros.cophi.image.model;
 
 /**
- *
+ * A scan is a box on an image of type T1 with coords of type T2.
+ * Degenerate boxes are the empty box (0,0,0,0) and the entire image (0,0,width,hight).
+ * The semantics of the coords (e.g. upper or lower corner), possible converters
+ * and additional methods are defined in the classes that implement Coords.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Scan<T1,T2 extends Coords> {
     
     /**
-     * 
-     * @return 
+     * Get the image of type T1. It can be an actual image (e.g. a BufferedImage)
+     * or a reference to an image (e.g. a String with the file name of the image).
+     * In the latter case, controllers will load and render the image.
+     * @return the image.
      */
     public T1 getImage();
 
     /**
-     * 
+     * Set the image of type T1.
+     * @see getImage()
      * @param image 
      */
     public void setImage(T1 image);
     
     /**
-     * 
-     * @return 
+     * Get the coordinates of the box that contains this scan.
+     * @return the coordinates of the box.
      */
     public Coords getCoords();
     
     /**
-     * 
-     * @param coords 
+     * Set the coordinates of the box that contains this scan.
+     * @param coords the coordinates of the box.
      */
     public void setCoords(T2 coords);
 }

@@ -20,15 +20,15 @@
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
 /**
- *
+ * A generic saver.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 public interface Saver<T1,T2> {
     
     /**
-     * 
-     * @param object
-     * @param destination 
+     * Save and object into a destination.
+     * @param object the object.
+     * @param destination the destination.
      */
     public void save(T1 object, T2 destination);
 

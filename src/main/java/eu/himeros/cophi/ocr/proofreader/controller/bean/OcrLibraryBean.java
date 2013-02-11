@@ -31,7 +31,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
- * Manages the library object, which contains books, which contains pages
+ * Manages the library object, which contains books, which contains pages.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 @ManagedBean(name = "libraryBean")

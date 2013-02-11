@@ -19,23 +19,25 @@
 
 package eu.himeros.cophi.ocr.model;
 
+import eu.himeros.cophi.core.model.TextualUnit;
 import eu.himeros.cophi.image.model.Scan;
 
 /**
- *
+ * An Ocr is a textual unit that provides a reference to a scan.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Ocr<T extends Scan<?,?>>{
+public interface Ocr<T extends Scan<?,?>> extends TextualUnit{
     
     /**
-     * 
-     * @return 
+     * Get the scan this textual unit is based on.
+     * @see Scan
+     * @return the scan.
      */
     public T getScan();
     
     /**
-     * 
-     * @param scan 
+     * Set the scan this textual unit is based on.
+     * @param scan the scan.
      */
     public void setScan(T scan);
 

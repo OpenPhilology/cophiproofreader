@@ -33,7 +33,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
- * Manages the current book in the library, provided to the user.
+ * Manages the current book in the library, which must be provided to the user.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 @ManagedBean(name = "bookBean")
