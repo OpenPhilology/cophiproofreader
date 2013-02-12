@@ -19,10 +19,10 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalComponent;
-import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.Component;
+import eu.himeros.cophi.core.model.Composite;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ import java.util.List;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: Maybe redisign is necessary
-public abstract class Page<T extends PhysicalComponent> implements TextualUnit, PhysicalComposite<T,List<T>>{
+public abstract class Page<T extends Physical & Component<?>> implements TextualUnit, Physical, Composite<T,List<T>>{
     
     protected List<T> components;
 

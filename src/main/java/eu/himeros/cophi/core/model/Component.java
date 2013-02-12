@@ -25,7 +25,7 @@ import java.io.Serializable;
  * This is the Component in the Composite pattern.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Component extends Serializable{
+public interface Component<T> extends Serializable{
    
     /**
      * Determine whether the component is atomic (a leaf) or not (a composite).

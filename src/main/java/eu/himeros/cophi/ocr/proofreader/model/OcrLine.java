@@ -20,7 +20,6 @@ package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.ocr.model.Ocr;
 import eu.himeros.cophi.text.model.Line;
-import eu.himeros.cophi.text.model.Token;
 import java.util.List;
 
 /**

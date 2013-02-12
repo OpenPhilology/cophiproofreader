@@ -20,6 +20,7 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.text.model.Library;
+import eu.himeros.cophi.text.model.Page;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  * provided by get methods.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrLibrary<T1,T2,T3> extends Library<OcrBook>{
+public class OcrLibrary<T1,T2,T3> extends Library{
 
     int currBookReference;
     OcrBook<T3> currBook;

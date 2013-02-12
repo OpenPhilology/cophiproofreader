@@ -19,7 +19,8 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.Composite;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import java.util.List;
  * Book is a physical composite of pages.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Book<T extends Page> implements TextualUnit, PhysicalComposite<T, List<T>> {
+public abstract class Book<T extends Page<?>> implements TextualUnit, Physical, Composite<T, List<T>> {
     
     protected List<T> pages;
     

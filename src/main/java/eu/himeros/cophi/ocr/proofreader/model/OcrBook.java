@@ -20,8 +20,6 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.text.model.Book;
-import eu.himeros.cophi.text.model.Page;
-import java.util.Collection;
 import java.util.List;
 
 /**

@@ -19,16 +19,16 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.Composite;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * A physical composite of tokens.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Line<T extends Token> implements TextualUnit, PhysicalComposite<T, List<T>>{
+public abstract class Line<T extends Token<String>> implements TextualUnit, Physical, Composite<T, List<T>>{
     
     protected List<T> tokens;
     
