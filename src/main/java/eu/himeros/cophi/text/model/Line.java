@@ -19,25 +19,25 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.Composite;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * A physical composite of tokens.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Line implements TextualUnit, PhysicalComposite<Token, List<Token>>{
+public abstract class Line<T extends Token<String>> implements TextualUnit, Physical, Composite<T, List<T>>{
     
-    protected List<Token> tokens;
+    protected List<T> tokens;
     
     /**
      * Get the list of tokens.
      * @return the list of tokens.
      */
     @Override
-    public List<Token> getChildren() {
+    public List<T> getChildren() {
         return tokens;
     }
 
@@ -46,7 +46,7 @@ public abstract class Line implements TextualUnit, PhysicalComposite<Token, List
      * @param tokens the list of tokens.
      */
     @Override
-    public void setChildren(List<Token> tokens) {
+    public void setChildren(List<T> tokens) {
         this.tokens=tokens;
     }
 

@@ -19,23 +19,24 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalAtom;
+import eu.himeros.cophi.core.model.Atom;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
 
 /**
  * The physical textual atom.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Token implements TextualUnit, PhysicalAtom<String> {
+public abstract class Token<T> implements TextualUnit, Physical, Atom<T> {
     
-    protected String content; 
+    protected T content; 
     
     /**
      * Get the string that represents this token.
      * @return the content.
      */
     @Override
-    public String getContent() {
+    public T getContent() {
         return content;
     }
 
@@ -44,7 +45,7 @@ public abstract class Token implements TextualUnit, PhysicalAtom<String> {
      * @param content the content.
      */
     @Override
-    public void setContent(String content) {
+    public void setContent(T content) {
         this.content=content;
     }
 
@@ -56,6 +57,5 @@ public abstract class Token implements TextualUnit, PhysicalAtom<String> {
     public boolean isAtomic() {
         return atomic;
     }
-    
     
 }

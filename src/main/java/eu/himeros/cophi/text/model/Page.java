@@ -19,10 +19,10 @@
 
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.PhysicalComponent;
-import eu.himeros.cophi.core.model.PhysicalComposite;
+import eu.himeros.cophi.core.model.Component;
+import eu.himeros.cophi.core.model.Composite;
+import eu.himeros.cophi.core.model.Physical;
 import eu.himeros.cophi.core.model.TextualUnit;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,16 +30,16 @@ import java.util.List;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: Maybe redisign is necessary
-public abstract class Page implements TextualUnit, PhysicalComposite<PhysicalComponent,List<PhysicalComponent>>{
+public abstract class Page<T extends Physical & Component<?>> implements TextualUnit, Physical, Composite<T,List<T>>{
     
-    protected List<PhysicalComponent> components;
+    protected List<T> components;
 
     /**
      * Get the list of physical components
      * @return the components.
      */
     @Override
-    public List<PhysicalComponent> getChildren() {
+    public List<T> getChildren() {
         return components;
     }
 
@@ -48,7 +48,7 @@ public abstract class Page implements TextualUnit, PhysicalComposite<PhysicalCom
      * @param components the components.
      */
     @Override
-    public void setChildren(List<PhysicalComponent> components) {
+    public void setChildren(List<T> components) {
         this.components=components;
     }
 

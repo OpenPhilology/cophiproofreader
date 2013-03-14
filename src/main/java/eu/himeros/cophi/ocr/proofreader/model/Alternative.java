@@ -27,7 +27,7 @@ import eu.himeros.cophi.text.model.Token;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class Alternative extends Token {
+public class Alternative extends Token<String> {
 
     protected String text;
     protected String nlp;

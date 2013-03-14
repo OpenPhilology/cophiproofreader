@@ -26,7 +26,7 @@ import java.util.Collection;
  * It is composed by a Collection of Components of Type T.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Composite<T extends Component,C extends Collection<T>> extends Component{
+public interface Composite<T extends Component<?>,C extends Collection<T>> extends Component<T>{
     
     public final boolean atomic=false;
     

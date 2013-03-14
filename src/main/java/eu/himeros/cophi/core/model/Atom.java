@@ -23,7 +23,7 @@ package eu.himeros.cophi.core.model;
  * This is the leaf in the Composite pattern. Type of its content is generic.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface Atom<T> extends Component {
+public interface Atom<T> extends Component<T> {
     
     public final boolean atomic=true;
     

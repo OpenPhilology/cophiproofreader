@@ -20,8 +20,6 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.text.model.Book;
-import eu.himeros.cophi.text.model.Page;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -29,7 +27,7 @@ import java.util.List;
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
 //TODO: generic must be revised, because T ocrBookId is important - OcrBook<T1,T2> is possible
-  public class OcrBook<T> extends Book{
+  public class OcrBook<T> extends Book<OcrPage>{
     int id;
     T ocrBookId;
     String ocrBookLabel;

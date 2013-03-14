@@ -20,9 +20,7 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.ocr.model.Ocr;
-import eu.himeros.cophi.text.model.Line;
 import eu.himeros.cophi.text.model.Page;
-import java.util.Collection;
 import java.util.List;
 import org.jdom2.Document;
 
@@ -30,15 +28,13 @@ import org.jdom2.Document;
  * The textual object related to a page, associated to the scan of the page.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrPage extends Page implements Ocr<PageScan<?>> {
+public class OcrPage extends Page<OcrLine> implements Ocr<PageScan<?>> {
 
     int id;
     String ocrPageId;
     String ocrPageLabel;
     Document hocrDocument;
     PageScan scan;
-    List<OcrColumn> ocrColumns;
-    List<OcrParagraph> ocrParagraphs;
     List<OcrLine> ocrLines;
 
     /**
@@ -93,25 +89,6 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
     }
     
     /**
-     * Get the columns
-     * @return the list of columns.
-     */
-    //TODO: this method must be redisigned. Currently it is not used.
-    @Deprecated
-    public List<OcrColumn> getOcrColumns() {
-        return ocrColumns;
-    }
-
-    /**
-     * Set the columns.
-     * @param ocrColumns the columns.
-     */
-    @Deprecated
-    public void setOcrColumns(List<OcrColumn> ocrColumns) {
-        this.ocrColumns = ocrColumns;
-    }
-    
-    /**
      * Get the lines of text.
      * @return the list of lines of text.
      */
@@ -125,24 +102,6 @@ public class OcrPage extends Page implements Ocr<PageScan<?>> {
      */
     public void setOcrLines(List<OcrLine> ocrLines) {
         this.ocrLines = ocrLines;
-    }
-
-    /**
-     * Get the paragraphs.
-     * @return the list of paragraphs.
-     */
-    //TODO: this must be redisigned. currently not used.
-    public List<OcrParagraph> getOcrParagraphs() {
-        return ocrParagraphs;
-    }
-
-    /**
-     * Set the paragraphs.
-     * @param ocrParagraphs the list of paragraphs. 
-     */
-    //TODO: this must be redisigned. currently not used.
-    public void setOcrParagraphs(List<OcrParagraph> ocrParagraphs) {
-        this.ocrParagraphs = ocrParagraphs;
     }
 
     /**

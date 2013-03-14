@@ -16,43 +16,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package eu.himeros.cophi.text.model;
 
-import eu.himeros.cophi.core.model.LogicalAtom;
-import eu.himeros.cophi.core.model.PhysicalComponent;
-import eu.himeros.cophi.core.model.TextualUnit;
+import eu.himeros.cophi.core.model.*;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Word<T> implements TextualUnit, LogicalAtom<T> {
+public abstract class Word<T> implements TextualUnit, Logical, Atom<T> {
 
-    protected PhysicalComponent backingComponent;
+    protected Physical<Component<?>> backingComponent;
     protected T content;
-    
+
     /**
      * Get the physical component this logical component is based on.
+     *
      * @return the backing component.
      */
     @Override
-    public PhysicalComponent getBackingComponent() {
+    public Physical<Component<?>> getBackingComponent() {
         return backingComponent;
     }
 
     /**
      * Set the physical component this logical component is based on.
+     *
      * @param backingComponent the backing component.
      */
     @Override
-    public void setBackingComponent(PhysicalComponent backingComponent) {
-        this.backingComponent=backingComponent;
+    public void setBackingComponent(Physical component) {
+        //backingComponent = (Physical<Component<?>>)component;
     }
 
     /**
-     * Get the content of this word. It can be a simple string, but it can be
-     * a complex structures with linguistic analyses.
+     * Get the content of this word. It can be a simple string, but it can be a
+     * complex structures with linguistic analyses.
+     *
      * @return the content of this word.
      */
     @Override
@@ -62,21 +62,21 @@ public abstract class Word<T> implements TextualUnit, LogicalAtom<T> {
 
     /**
      * Set the content of this word.
+     *
      * @param content the content of this word.
      */
     @Override
     public void setContent(T content) {
-        this.content=content;
+        this.content = content;
     }
 
     /**
      * Return true.
+     *
      * @return true.
      */
     @Override
     public boolean isAtomic() {
         return atomic;
     }
-    
-
 }

@@ -20,7 +20,7 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.ocr.model.Ocr;
-import eu.himeros.cophi.text.model.Word;
+import eu.himeros.cophi.text.model.Token;
 import java.util.List;
 
 /**
@@ -28,7 +28,7 @@ import java.util.List;
  * The name word derives by the hocr microformat.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrWord extends Word implements Ocr<PageScan<?>>{
+public class OcrWord extends Token<String> implements Ocr<PageScan<?>>{
 
     String id;
     Insertion insertion;
