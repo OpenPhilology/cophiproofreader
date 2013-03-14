@@ -19,21 +19,17 @@
 
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
-import java.awt.Image;
+import java.util.Map;
 
 /**
- * A generic image loader that loads an image from an origin of type T.
+ *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public interface ImageLoader<T> extends Loader<T>{
-    
-    /**
-     * Load the image.
-     * @param origin the origin.
-     * @return the Image.
-     */
+public class BookExistDescriptor extends Descriptor<String,String,Map<String,String>> {
+
     @Override
-    public Image load(T origin);
-    
-    
+    public void initRepository() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

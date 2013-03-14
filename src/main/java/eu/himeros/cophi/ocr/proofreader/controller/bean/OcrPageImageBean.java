@@ -94,7 +94,7 @@ public class OcrPageImageBean implements Serializable {
      * in the second one it renders the actual image.
      * @return the image.
      */
-    public DefaultStreamedContent getImage() {
+    public synchronized DefaultStreamedContent getImage() {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getRenderResponse()) {
             return new DefaultStreamedContent();
