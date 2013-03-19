@@ -18,12 +18,16 @@
  */
 package eu.himeros.cophi.ocr.proofreader.controller.bean;
 
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.ImageExistLoader;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.ImageLoader;
 import eu.himeros.cophi.ocr.proofreader.model.OcrLine;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -47,11 +51,13 @@ public class OcrPageImageBean implements Serializable {
     @ManagedProperty(value = "#{libraryBean}")
     OcrLibraryBean libraryBean;
     DefaultStreamedContent defStreamContent;
+    ImageLoader<Map<String,Object>> il;
 
     /**
      * 
      */
     public OcrPageImageBean() {
+        il=new ImageExistLoader();
     }
 
     /**
@@ -108,8 +114,14 @@ public class OcrPageImageBean implements Serializable {
             int y2 = Integer.parseInt(context.getExternalContext().getRequestParameterMap().get("y2"));
             pageImage = null;
             try {
-                ImageIcon iic = new ImageIcon((String) line.getScan().getImage());
-                pageImage = ((ToolkitImage) iic.getImage()).getBufferedImage();
+                //ImageIcon iic = new ImageIcon((String) line.getScan().getImage());//!!!
+                //pageImage = ((ToolkitImage) iic.getImage()).getBufferedImage();//!!!
+                Map<String,Object> pageInfoMap=new HashMap<>();
+                pageInfoMap.put("library",libraryBean.getLibrary().getRepository());
+                pageInfoMap.put("book",libraryBean.getLibrary().getCurrBook().getOcrBookId());
+                //pageInfoMap.put("image",(String)(((String)libraryBean.getLibrary().getCurrBook().getCurrPage().getScan().getImage()).replaceAll(".png",".jpg")));
+                pageInfoMap.put("image",(String)(libraryBean.getLibrary().getCurrBook().getCurrPage().getScan().getImage()));
+                pageImage=(BufferedImage)il.load(pageInfoMap);
                 BufferedImage bimg = ((BufferedImage) pageImage).getSubimage(x1, y1, x2 - x1, y2 - y1);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 ImageIO.write(bimg, "png", os);

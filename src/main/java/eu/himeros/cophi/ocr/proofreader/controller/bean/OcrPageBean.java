@@ -18,24 +18,27 @@
  */
 package eu.himeros.cophi.ocr.proofreader.controller.bean;
 
-import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentBufferedReader;
-import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentBufferedWriter;
+//import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentBufferedReader;
+//import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentBufferedWriter;
 import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentBuilder;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentExistLoader;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.HocrDocumentExistSaver;
 import eu.himeros.cophi.ocr.proofreader.controller.pojo.OcrPageParser;
 import eu.himeros.cophi.ocr.proofreader.model.OcrBook;
 import eu.himeros.cophi.ocr.proofreader.model.OcrLibrary;
 import eu.himeros.cophi.ocr.proofreader.model.OcrPage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import org.jdom2.Document;
+import org.xmldb.api.base.Collection;
 
 /**
  * Manages the current page edited by the user.
@@ -48,11 +51,11 @@ public class OcrPageBean implements Serializable {
     private static final transient Logger logger = Logger.getLogger(InitBean.class.getName());
     @ManagedProperty(value = "#{bookBean}")
     private OcrBookBean bookBean;
-    private OcrBook book;
+    //private OcrBook book;
     private OcrPage page;
     private int pageReference;
-    private int prevPageReference = -1;
-    
+    //private int prevPageReference = -1;
+    private Map<String,Object> pageInfoMap=new HashMap<>();    
     /**
      * Default constructor
      */
@@ -132,18 +135,23 @@ public class OcrPageBean implements Serializable {
      * and it parses it.
      */
     private void fillPage() {
-        String fileName;
-        HocrDocumentBufferedReader hocrDocumentReader = new HocrDocumentBufferedReader();
+        //String fileName;
+        HocrDocumentExistLoader hocrDocumentLoader = new HocrDocumentExistLoader();
         try {
-            OcrLibrary<String, String, String> library = bookBean.getLibraryBean().getLibrary();
+            OcrLibrary<Map<String,String>, String, String,Collection> library = bookBean.getLibraryBean().getLibrary();
             OcrBook<String> currBook = library.getCurrBook();
             List<OcrPage> ocrPages = bookBean.getOcrPages();
             OcrPage currPage = ocrPages.get(pageReference);
-            fileName = library.getRoot() + File.separator + currBook.getOcrBookId() + File.separator + currPage.getOcrPageId();
-            Document inHocrDocument = hocrDocumentReader.load(fileName);
-            String path = library.getRoot() + File.separator + library.getCurrBook().getOcrBookId() + File.separator;
+            
+            //fileName = library.getLibraryAddress() + File.separator + currBook.getOcrBookId() + File.separator + currPage.getOcrPageId();
+            pageInfoMap.put("library",bookBean.getLibraryBean().getLibrary().getRepository());
+            pageInfoMap.put("book",bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId());
+            pageInfoMap.put("page",bookBean.getOcrPages().get(pageReference).getOcrPageId());
+            pageInfoMap.put("page-object",currPage);
+            Document inHocrDocument = hocrDocumentLoader.load(pageInfoMap);
+            //String path = library.getLibraryAddress() + File.separator + library.getCurrBook().getOcrBookId() + File.separator;
             OcrPageParser opp = new OcrPageParser();
-            page = opp.parse(path, inHocrDocument,currPage);
+            page = opp.parse(inHocrDocument,pageInfoMap);
         } catch (FileNotFoundException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             ex.printStackTrace(System.err);
         }
@@ -169,13 +177,17 @@ public class OcrPageBean implements Serializable {
     //TODO: Save must be robust; currently it is very weak.
     public void save() {
         HocrDocumentBuilder hocrDocBuilder = new HocrDocumentBuilder();
-        HocrDocumentBufferedWriter hocrDocBuffWriter = new HocrDocumentBufferedWriter();
+        HocrDocumentExistSaver hocrDocumentExistSaver = new HocrDocumentExistSaver();
         try {
-            String absolutePath=bookBean.getLibraryBean().getLibrary().getRoot()+File.separator+bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId()+File.separator+page.getOcrPageId();
-            hocrDocBuffWriter.save(hocrDocBuilder.build(page), absolutePath);
-        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            //String absolutePath=bookBean.getLibraryBean().getLibrary().getLibraryAddress()+File.separator+bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId()+File.separator+page.getOcrPageId();
+            pageInfoMap=new HashMap<>();
+            pageInfoMap.put("library",(Collection)bookBean.getLibraryBean().getLibrary().getRepository());
+            pageInfoMap.put("book",bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId());
+            pageInfoMap.put("page",bookBean.getLibraryBean().getLibrary().getCurrBook().getCurrPage().getOcrPageId());
+            pageInfoMap.put("page-object",bookBean.getLibraryBean().getLibrary().getCurrBook().getCurrPage());
+            hocrDocumentExistSaver.save(hocrDocBuilder.build(page),pageInfoMap);
+        } catch (Exception ex) {
             ex.printStackTrace(System.err);
         }
-    }
-    
+    } 
 }

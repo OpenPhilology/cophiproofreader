@@ -20,22 +20,13 @@
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
 import eu.himeros.cophi.ocr.proofreader.model.OcrPage;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.exist.xmldb.EXistResource;
 import org.jdom2.Document;
-import org.jdom2.JDOMException;
-import org.jdom2.input.DOMBuilder;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.DOMOutputter;
 import org.jdom2.output.XMLOutputter;
-import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
@@ -43,48 +34,58 @@ import org.xmldb.api.modules.XMLResource;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class HocrDocumentExistSaver implements HocrDocumentSaver<Map<String,String>> {
+public class HocrDocumentExistSaver implements HocrDocumentSaver<Map<String,Object>> {
     
-    public static void main(String[] args) throws Exception{
-        HashMap<String,String> pageInfoMap=new HashMap<>();
-        pageInfoMap.put("library","xmldb:exist://localhost:8088/xmlrpc/db/perseus-ocr");
-        pageInfoMap.put("book","Euclides-Opera1.book");
-        pageInfoMap.put("page","p0208.html");
-        pageInfoMap.put("login","federico");
-        pageInfoMap.put("password","ociredef");
+    //public static void main(String[] args) throws Exception{
+        //HashMap<String,String> pageInfoMap=new HashMap<>();
+        //pageInfoMap.put("library","xmldb:exist://localhost:8088/xmlrpc/db/perseus-ocr");
+       // pageInfoMap.put("book","Euclides-Opera1.book");
+       // pageInfoMap.put("page","p0208.html");
+       // pageInfoMap.put("login","federico");
+        //pageInfoMap.put("password","ociredef");
         
-        SAXBuilder builder=new SAXBuilder();
-        Document doc=builder.build("/opt/junk/Euclides-Opera1.book/p0208.html");
-        HocrDocumentExistSaver hdes=new HocrDocumentExistSaver();
-        hdes.save(doc,pageInfoMap);        
-    }
+       // SAXBuilder builder=new SAXBuilder();
+       // Document doc=builder.build("/opt/junk/Euclides-Opera1.book/p0208.html");
+      //  HocrDocumentExistSaver hdes=new HocrDocumentExistSaver();
+      //  hdes.save(doc,pageInfoMap);        
+    //}
     @Override
-    public void save(Document hocrDocument, Map<String, String> destination) {
+    public void save(Document hocrDocument, Map<String,Object> destination) {
         try{
-            String library=destination.get("library");
-            String book=library+"/"+destination.get("book");
-            String page=destination.get("page");
-            String login=destination.get("login");
-            String password=destination.get("password");
-            Database database = (Database)(Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
-            DatabaseManager.registerDatabase(database);
-            Collection col = DatabaseManager.getCollection(book,login,password);
-            XMLResource res=(XMLResource)col.createResource(page,"XMLResource");
-            DOMOutputter domOutputter=new DOMOutputter();
+            //String library=destination.get("library");
+            //String book=library+"/"+destination.get("book");
+            //String page=destination.get("page");
+            //String login=destination.get("login");
+            //String password=destination.get("password");
+            //Database database = (Database)(Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
+            //DatabaseManager.registerDatabase(database);
+            //Collection col = DatabaseManager.getCollection(book,login,password);
+            Collection libCol=(Collection)destination.get("library");
+            System.err.println(destination.get("library"));
+            //System.err.println(((Collection)destination.get("library")).toString());
+            System.err.println((String)destination.get("book"));
+            System.err.println(((Collection)libCol.getChildCollection((String)destination.get("book"))).toString());
+            System.err.println("err");
+            Collection bookCol=libCol.getChildCollection((String)destination.get("book"));
+            XMLResource res=(XMLResource)bookCol.createResource((String)destination.get("page"),"XMLResource");
+            //DOMOutputter domOutputter=new DOMOutputter();
             XMLOutputter xmlOutputter=new XMLOutputter();
+            String resStr=xmlOutputter.outputString(hocrDocument);
             //org.w3c.dom.Document domDoc=domOutputter.output(hocrDocument);
-            res.setContent(xmlOutputter.outputString(hocrDocument));
-            col.storeResource(res);
+            res.setContent(resStr);
+            System.err.println(resStr);
+            bookCol.storeResource(res);
             ((EXistResource)res).freeResources();
-        }catch(ClassNotFoundException | InstantiationException | IllegalAccessException | XMLDBException ex){
+        }catch(XMLDBException ex){
             Logger.getLogger(HocrDocumentExistSaver.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void save(OcrPage ocrPage, Map<String, String> destination) {
+    public void save(OcrPage ocrPage, Map<String,Object> destination) {
         Document doc=ocrPage.getHocrDocument();
         save(doc,destination);
     }
+
 
 }

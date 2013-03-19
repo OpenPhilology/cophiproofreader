@@ -20,18 +20,15 @@ package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
 import eu.himeros.cophi.ocr.proofreader.model.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
-import org.jdom2.input.SAXBuilder;
 
 /**
  * Parser the hocr document and creates an ocr page.
@@ -41,8 +38,8 @@ public class OcrPageParser implements Serializable {
     static final Logger logger=Logger.getLogger(OcrPageParser.class.getName());
     OcrPage ocrPage;
     BufferedImage ocrPageImage;
-    static String path;
-    ImageFileNameLoader il=new ImageFileNameLoader();
+    //static String path;
+    //ImageLoader il=new ImageFileNameLoader();
 
     /**
      * Default Constructor.
@@ -102,17 +99,17 @@ public class OcrPageParser implements Serializable {
      * Get the absolute path to the resource.
      * @return the path.
      */
-    public String getPath() {
-        return path;
-    }
+    //public String getPath() {
+    //    return path;
+    //}
 
     /**
      * Set the absolute path to the resource.
      * @param path the path.
      */
-    public void setPath(String path) {
-        OcrPageParser.path = path;
-    }
+    //public void setPath(String path) {
+    //    OcrPageParser.path = path;
+    //}
     
     /**
      * Parses the ocrPage previously stored.
@@ -135,11 +132,11 @@ public class OcrPageParser implements Serializable {
      * @throws InstantiationException
      * @throws IllegalAccessException 
      */
-    public OcrPage parse(String hocrFileName) throws JDOMException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException{
-        SAXBuilder builder=new SAXBuilder();
-        Document hocrDocument=builder.build(new File(hocrFileName));
-        return parse(hocrDocument);
-    }
+//    public OcrPage parse(String hocrFileName) throws JDOMException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+//        SAXBuilder builder=new SAXBuilder();
+//        Document hocrDocument=builder.build(new File(hocrFileName));
+//        return parse(hocrDocument);
+//    }
     
     /**
      * Creates an ocrPage extracting information both from the hocrDocuemnt and from an old ocrPage.
@@ -152,9 +149,9 @@ public class OcrPageParser implements Serializable {
      * @throws InstantiationException
      * @throws IllegalAccessException 
      */
-    public OcrPage parse(String path, Document hocrDocument, OcrPage ocrPage) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException{
-        setPath(path);
-        setOcrPage(ocrPage);
+    public OcrPage parse(Document hocrDocument,Map<String,Object> pageInfoMap) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        //setPath(path); !!!PATH!!!
+        setOcrPage((OcrPage)pageInfoMap.get("page-object"));
         return parse(hocrDocument);
     }
 
@@ -188,7 +185,7 @@ public class OcrPageParser implements Serializable {
     private OcrLine parseOcrLine(Element ocrLineEl) {
         OcrLine ocrLine = new OcrLine();       
         OcrCoords ocrLineCoords = new OcrCoords(ocrLineEl.getAttributeValue("title"));
-        ocrLine.setScan(new PageScan(path+ocrPage.getScan().getImage(),ocrLineCoords));
+        ocrLine.setScan(new PageScan(ocrPage.getScan().getImage(),ocrLineCoords)); //!!!! PATH!!!!
         List<OcrWord> ocrWords = new ArrayList<>();
         for (Element ocrWordEl : ocrLineEl.getChildren()) {
             ocrWords.add(parseOcrWord(ocrWordEl));

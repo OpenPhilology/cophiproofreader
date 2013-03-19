@@ -20,7 +20,6 @@
 package eu.himeros.cophi.ocr.proofreader.model;
 
 import eu.himeros.cophi.text.model.Library;
-import eu.himeros.cophi.text.model.Page;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +29,14 @@ import java.util.List;
  * provided by get methods.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class OcrLibrary<T1,T2,T3> extends Library{
+public class OcrLibrary<T1,T2,T3,T4> extends Library{
 
     int currBookReference;
     OcrBook<T3> currBook;
-    T1 root;
+    T1 libraryAddress;
     T2 bookFilter;
     T2 pageFilter;
+    T4 repository;
     
     List<OcrBook> ocrBooks;
    
@@ -67,23 +67,23 @@ public class OcrLibrary<T1,T2,T3> extends Library{
     }
     
     /**
-     * Get the root of the collection. Type is generic, because subclasses can
+     * Get the library address of the collection. Type is generic, because subclasses can
      * implement it in different ways, e.g. a string that defines a path, a File
      * that describes a directory, etc.
-     * @return the root.
+     * @return the library address.
      */
-    public T1 getRoot() {
-        return root;
+    public T1 getLibraryAddress() {
+        return libraryAddress;
     }
 
     /**
-     * Get the root of the collection. Type is generic, because subclasses can
+     * Set the library address of the collection. Type is generic, because subclasses can
      * implement it in different ways, e.g. a string that defines a path, a File
      * that describes a directory, etc
-     * @param root the root. 
+     * @param libraryAddress the libraryAddress. 
      */
-    public void setRoot(T1 root) {
-        this.root = root;
+    public void setLibraryAddress(T1 libraryAddress) {
+        this.libraryAddress = libraryAddress;
     }
 
     /**
@@ -150,4 +150,13 @@ public class OcrLibrary<T1,T2,T3> extends Library{
         this.currBook = currBook;
     }
 
+    public T4 getRepository() {
+        return repository;
+    }
+
+    public void setRepository(T4 repository) {
+        this.repository = repository;
+    }
+
+    
 }

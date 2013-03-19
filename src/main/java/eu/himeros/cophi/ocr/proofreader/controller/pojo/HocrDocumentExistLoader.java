@@ -32,37 +32,41 @@ import org.xmldb.api.modules.XMLResource;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class HocrDocumentExistLoader implements HocrDocumentLoader<Map<String, String>> {
+public class HocrDocumentExistLoader implements HocrDocumentLoader<Map<String,Object>> {
 
-    public static void main(String args[]) throws Exception {
-        HashMap<String, String> pageInfoMap = new HashMap<>();
-        pageInfoMap.put("library", "xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
-        pageInfoMap.put("book", "Euclides-Opera1.book");
-        pageInfoMap.put("page", "p0208.html");
-        pageInfoMap.put("login", "user01");
-        pageInfoMap.put("password", "01resu");
-        HocrDocumentExistLoader hdel = new HocrDocumentExistLoader();
-        Document doc = hdel.load(pageInfoMap);
-        XMLOutputter xmlOutputter = new XMLOutputter();
-        String res = xmlOutputter.outputString(doc);
-        System.out.println(res);
-    }
+    //public static void main(String args[]) throws Exception {
+    //    HashMap<String, String> pageInfoMap = new HashMap<>();
+    //    pageInfoMap.put("library", "xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
+    //    pageInfoMap.put("book", "Euclides-Opera1.book");
+    //    pageInfoMap.put("page", "p0208.html");
+    //    pageInfoMap.put("login", "user01");
+    //    pageInfoMap.put("password", "01resu");
+    //    HocrDocumentExistLoader hdel = new HocrDocumentExistLoader();
+    //    Document doc = hdel.load(pageInfoMap);
+    //    XMLOutputter xmlOutputter = new XMLOutputter();
+    //    String res = xmlOutputter.outputString(doc);
+    //    System.out.println(res);
+    //}
 
     @Override
-    public Document load(Map<String, String> origin) {
+    public Document load(Map<String,Object> origin) {
         try {
-            String library = origin.get("library");
-            String book = library + "/" + origin.get("book");
-            String page = origin.get("page");
-            String login = origin.get("login");
-            String password = origin.get("password");
-            Database database = (Database) (Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
-            DatabaseManager.registerDatabase(database);
-            Collection col = DatabaseManager.getCollection(book, login, password);
-            XMLResource res = (XMLResource) col.getResource(page);
+            //String library = origin.get("library");
+            //String book = library + "/" + origin.get("book");
+            //String page = origin.get("page");
+            //String login = origin.get("login");
+            //String password = origin.get("password");
+            //Database database = (Database) (Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
+            //DatabaseManager.registerDatabase(database);
+            //Collection col = DatabaseManager.getCollection(book, login, password);
+            Collection libCol=(Collection)origin.get("library");
+            Collection bookCol=libCol.getChildCollection((String)origin.get("book"));
+            XMLResource res = (XMLResource) bookCol.getResource((String)origin.get("page"));
             DOMBuilder domBuilder = new DOMBuilder();
             Document doc = domBuilder.build((org.w3c.dom.Document) res.getContentAsDOM());
-            col.close();
+            System.err.println(doc.toString());
+            System.err.println("nothing");
+            //col.close();
             return doc;
         } catch (Exception ex) {
             return null;

@@ -20,6 +20,8 @@
 package eu.himeros.cophi.ocr.proofreader.controller.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -40,7 +42,8 @@ import javax.faces.bean.ManagedBean;
 public class InitBean implements Serializable{
 
     private final static transient Logger log= Logger.getLogger(InitBean.class.getName());
-    private String root="/opt/junk";
+    //private String root="/opt/junk";
+    private Map<String,String> libraryAddress=new HashMap<>();
     private String bookFilter=".book";
     private String pageFilter=".html";
     private String imageFilter=".png";
@@ -78,23 +81,6 @@ public class InitBean implements Serializable{
         this.pageFilter = pageFilter;
     }
 
-    /**
-     * Get the root of the collection (e.g. the absolute path to the collection
-     * in the file system)
-     * @return 
-     */
-    public String getRoot() {
-        return root;
-    }
- 
-    /**
-     * Set the root of the collection (e.g. the absolute path to the collection
-     * in the file system)
-     * @param root the path to the collection 
-     */
-    public void setRoot(String root) {
-        this.root = root;
-    }
 
     /**
      * Get the imageFilter 
@@ -112,4 +98,16 @@ public class InitBean implements Serializable{
     public void setImageFilter(String imageFilter) {
         this.imageFilter = imageFilter;
     }
+
+    public Map<String, String> getLibraryAddress() {
+        libraryAddress.put("library","xmldb:exist://localhost:8088/xmlrpc/db/perseus-ocr");
+        libraryAddress.put("login","userXYZ");
+        libraryAddress.put("password","passwordXYZ");
+        return libraryAddress;
+    }
+
+    public void setLibraryAddress(Map<String, String> libraryAccess) {
+        this.libraryAddress = libraryAccess;
+    }
+    
 }

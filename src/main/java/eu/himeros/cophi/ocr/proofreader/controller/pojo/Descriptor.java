@@ -24,26 +24,27 @@ import java.util.List;
  * Describes resources.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public abstract class Descriptor<T1, T2, T3> {
+public abstract class Descriptor<T1, T2, T3, T4> {
 
-    T1 repository;
+    T1 repositoryAddress;
     T2 filter;
     List<T3> references;
+    T4 repository;
 
     /**
-     * Get the repository.
-     * @return the repository.
+     * Get the repositoryAddress.
+     * @return the repositoryAddress.
      */
-    public T1 getRepository() {
-        return repository;
+    public T1 getRepositoryAddress() {
+        return repositoryAddress;
     }
 
     /**
-     * Set the repository.
-     * @param repository the repository.
+     * Set the repositoryAddress.
+     * @param repositoryAddress the repositoryAddress.
      */
-    public void setRepository(T1 repository) {
-        this.repository = repository;
+    public void setRepositoryAddress(T1 repositoryAddress) {
+        this.repositoryAddress = repositoryAddress;
     }
 
     /**
@@ -78,9 +79,18 @@ public abstract class Descriptor<T1, T2, T3> {
     public void setReferences(List<T3> references) {
         this.references = references;
     }
+
+    public T4 getRepository() {
+        return repository;
+    }
+
+    public void setRepository(T4 repository) {
+        this.repository = repository;
+    }
     
     /**
-     * Initialize the repository
+     * Initialize the repositoryAddress
      */
     public abstract void initRepository();
+    
 }

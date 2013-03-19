@@ -27,8 +27,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <h:head>
         <title>CoPhiProofReader</title>
         <!-- rev 0.2 -->
+        <script type="text/javascript">
+            function start(){
+                window['progress']=setInterval(function(){
+                   var oldValue=pbClient.getValue(),newValue=oldValue+20;
+                   pbClient.setValue(pbClient.getValue()+20);
+                   if(newValue==1000){
+                       //clearInterval(window['progress']);
+                       pbClient.setValue(0);
+                   }
+                },1000);
+            }
+            
+            function cancel(){
+                clearInterval(window['progress']);
+                pbClient.setValue(0);
+            }
+        </script>
     </h:head>
-    <h:body onload="#{initBean.setRoot('/opt/junk')};#{initBean.setBookFilter('.book')};#{initBean.setPageFilter('.html')};#{initBean.setImageFilter('.png')}">        
+    <h:body>    
+
         <h:outputStylesheet library="css" name="nlp.css"/>
         <p:layout fullPage="true">
             <p:layoutUnit size="10%" position="north" resizable="true" closable="false" collapsible="true">
@@ -38,15 +56,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <f:selectItems value="#{libraryBean.library.ocrBooks}" var="ocrBook" itemLabel="#{ocrBook.ocrBookLabel}" itemValue="#{ocrBook.id}"/>
                         <f:ajax immediate="true" listener="#{libraryBean.update(libraryBean.library.currBookReference)}" render=":bookForm"/>
                     </p:selectOneMenu>
-                    <p:commandButton actionListener="#{pageBean.save()}" value="Save"/>
+                <p:commandButton onclick="start()" actionListener="#{pageBean.save()}" value="Save"/>
+
                 </h:form>
             </p:layoutUnit>
             <p:layoutUnit size="90%" position="center" resizable="true" closable="false" collapsible="true">
                 <p:layout fullPage="false">
                     <p:layoutUnit style="text-align: right;" size="10%" position="west" resizable="true" closable="false" collapsible="true">
-                        <h:form id="bookForm" prependId="bf">
+                        <h:form id="bookForm" onsubmit="document.body.style.cursor='wait'" prependId="bf">
+                                                <p:progressBar id="progressBarClient" widgetVar="pbClient" style="width:120px"/>
+                                                <br/>
                             <c:forEach items="#{bookBean.ocrPages}" var="ocrPage">
-                                <p:commandLink immediate="false" update=":pageForm" oncomplete="window.location.reload();"  style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
+                                <p:commandLink  oncomplete="window.location.reload();" onclick="start();document.getElementById('pagePanel').style.display='none'" immediate="false" update=":pageForm"   style="text-decoration: none;"  title="#{ocrPage.ocrPageLabel}" value="#{ocrPage.ocrPageLabel}">
                                     <f:setPropertyActionListener value="#{ocrPage.id}" target="#{bookBean.currPageReference}" />
                                 </p:commandLink><h:outputText value="&nbsp;&nbsp;&lt;br/&gt;" escape="false"/>                   
                             </c:forEach>

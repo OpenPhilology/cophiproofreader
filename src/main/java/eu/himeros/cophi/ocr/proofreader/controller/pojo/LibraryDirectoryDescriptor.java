@@ -29,23 +29,23 @@ import java.util.logging.Logger;
  * Describes the content of a library, providing references to the books.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class LibraryDirectoryDescriptor extends Descriptor<String, String, String> {
+public class LibraryDirectoryDescriptor extends Descriptor<String, String, String,String> {
 
     static final transient Logger logger=Logger.getLogger(LibraryDirectoryDescriptor.class.getName());
     File libraryDir;
 
     /**
-     * Set the repository.
+     * Set the repositoryAddress.
      * @param libraryDirName the library directory name. 
      */
     @Override
-    public void setRepository(String libraryDirName) {
-        this.repository = libraryDirName;
+    public void setRepositoryAddress(String libraryDirName) {
+        this.repositoryAddress = libraryDirName;
         libraryDir = new File(libraryDirName);
     }
 
     /**
-     * Initialize the repository, reading the references to the books, accessible
+     * Initialize the repositoryAddress, reading the references to the books, accessible
      * by setter and getter of the superclass.
      */
     @Override

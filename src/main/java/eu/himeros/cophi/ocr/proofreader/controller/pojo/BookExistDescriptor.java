@@ -16,20 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
+import org.xmldb.api.base.Collection;
 
 /**
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class BookExistDescriptor extends Descriptor<String,String,Map<String,String>> {
+public class BookExistDescriptor extends Descriptor<Map<String, String>, String, String, Collection> {
 
     @Override
     public void initRepository() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Collection col = repository.getChildCollection(repositoryAddress.get("book"));
+            references = new ArrayList<>();
+            for (String page : col.listResources()) {
+                if(page.endsWith(filter)){
+                    references.add(page);
+                }
+            }
+            Collections.sort(references);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
     }
-
 }

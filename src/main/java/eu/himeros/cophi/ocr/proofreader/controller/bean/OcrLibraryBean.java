@@ -19,16 +19,18 @@
 package eu.himeros.cophi.ocr.proofreader.controller.bean;
 
 import eu.himeros.cophi.ocr.proofreader.controller.pojo.Descriptor;
-import eu.himeros.cophi.ocr.proofreader.controller.pojo.LibraryDirectoryDescriptor;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.LibraryExistDescriptor;
 import eu.himeros.cophi.ocr.proofreader.model.OcrBook;
 import eu.himeros.cophi.ocr.proofreader.model.OcrLibrary;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.xmldb.api.base.Collection;
 
 /**
  * Manages the library object, which contains books, which contains pages.
@@ -41,7 +43,7 @@ public class OcrLibraryBean implements Serializable {
     private static final transient Logger log = Logger.getLogger(InitBean.class.getName());
     @ManagedProperty(value = "#{initBean}")
     private InitBean initBean;
-    private OcrLibrary<String, String, String> library;
+    private OcrLibrary<Map<String,String>, String, String,Collection> library;
 
     /**
      * Default Constructor
@@ -56,15 +58,16 @@ public class OcrLibraryBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        library = new OcrLibrary();
-        library.setRoot(initBean.getRoot());
+        library = new OcrLibrary<>();
+        library.setLibraryAddress(initBean.getLibraryAddress());
         library.setBookFilter(initBean.getBookFilter());
         library.setPageFilter(initBean.getPageFilter());
-        Descriptor libDirDescriptor = new LibraryDirectoryDescriptor();
-        libDirDescriptor.setFilter(library.getBookFilter());
-        libDirDescriptor.setRepository(library.getRoot());
-        libDirDescriptor.initRepository();
-        List<String> bookIds = libDirDescriptor.getReferences();
+        Descriptor<Map<String, String>, String, String, Collection> libDescriptor = new LibraryExistDescriptor();
+        libDescriptor.setFilter(library.getBookFilter());
+        libDescriptor.setRepositoryAddress(library.getLibraryAddress());
+        libDescriptor.initRepository();
+        library.setRepository(libDescriptor.getRepository());
+        List<String> bookIds = libDescriptor.getReferences();
         int i = 0;
         for (String bookId : bookIds) {
             OcrBook<String> book = new OcrBook<>();
@@ -82,7 +85,7 @@ public class OcrLibraryBean implements Serializable {
      * Get the library, which contains books, which contains pages.
      * @return the library.
      */
-    public OcrLibrary<String, String, String> getLibrary() {
+    public OcrLibrary<Map<String,String>, String, String,Collection> getLibrary() {
         return library;
     }
 
@@ -90,7 +93,7 @@ public class OcrLibraryBean implements Serializable {
      * Set the library, which contains books, which contains pages.
      * @param library 
      */
-    public void setLibrary(OcrLibrary<String, String, String> library) {
+    public void setLibrary(OcrLibrary<Map<String,String>, String, String,Collection> library) {
         this.library = library;
     }
 

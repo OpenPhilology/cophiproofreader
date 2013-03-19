@@ -18,19 +18,21 @@
  */
 package eu.himeros.cophi.ocr.proofreader.controller.bean;
 
-import eu.himeros.cophi.ocr.proofreader.controller.pojo.BookDirectoryDescriptor;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.BookExistDescriptor;
+import eu.himeros.cophi.ocr.proofreader.controller.pojo.Descriptor;
 import eu.himeros.cophi.ocr.proofreader.model.OcrBook;
 import eu.himeros.cophi.ocr.proofreader.model.OcrLibrary;
 import eu.himeros.cophi.ocr.proofreader.model.OcrPage;
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.xmldb.api.base.Collection;
 
 /**
  * Manages the current book in the library, which must be provided to the user.
@@ -111,13 +113,19 @@ public class OcrBookBean implements Serializable {
      * of a regular expression.
      */
     private void initPages() {
-        OcrLibrary<String, String, String> library = libraryBean.getLibrary();
-        OcrBook<?> currBook = library.getCurrBook();
-        BookDirectoryDescriptor bookDirDescriptor = new BookDirectoryDescriptor();
-        bookDirDescriptor.setFilter(library.getPageFilter());
-        bookDirDescriptor.setRepository(library.getRoot() + File.separator + currBook.getOcrBookId());
-        bookDirDescriptor.initRepository();
-        List<String> references = bookDirDescriptor.getReferences();
+        OcrLibrary<Map<String,String>, String, String,Collection> library = libraryBean.getLibrary();
+        OcrBook<String> currBook = library.getCurrBook();
+        Descriptor bookDescriptor = new BookExistDescriptor();
+        bookDescriptor.setFilter(library.getPageFilter());
+        System.err.println(library.getPageFilter());
+        library.getLibraryAddress().put("book",currBook.getOcrBookId());
+        System.err.println(currBook.getOcrBookId());
+        bookDescriptor.setRepositoryAddress(library.getLibraryAddress());
+        System.err.println(library.getLibraryAddress().get("library"));
+        bookDescriptor.setRepository(library.getRepository());
+        System.err.println(">"+library.getRepository().toString()+"<");
+        bookDescriptor.initRepository();
+        List<String> references = bookDescriptor.getReferences();
         int i = 0;
         Collections.sort(references);
         libraryBean.getLibrary().getCurrBook().setOcrPages(new ArrayList<OcrPage>());

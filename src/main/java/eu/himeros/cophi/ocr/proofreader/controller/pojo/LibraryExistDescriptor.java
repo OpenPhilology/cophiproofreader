@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package eu.himeros.cophi.ocr.proofreader.controller.pojo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.jdom2.Document;
@@ -33,17 +34,18 @@ import org.xmldb.api.modules.XMLResource;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class LibraryExistDescriptor extends Descriptor<Map<String,String>,String,String> {
-    
-      public static void main(String args[]) throws Exception {
+public class LibraryExistDescriptor extends Descriptor<Map<String, String>, String, String, Collection> {
+
+    public static void main(String args[]) throws Exception {
         HashMap<String, String> pageInfoMap = new HashMap<>();
-        pageInfoMap.put("library", "xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/apps/perseus-ocr");
+        pageInfoMap.put("library", "xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
         //pageInfoMap.put("book", "Euclides-Opera1.book");
         //pageInfoMap.put("page", "p0208.html");
         pageInfoMap.put("login", "user01");
         pageInfoMap.put("password", "01resu");
         LibraryExistDescriptor led = new LibraryExistDescriptor();
-        led.setRepository(pageInfoMap);
+        led.setRepositoryAddress(pageInfoMap);
+        led.setFilter(".book");
         led.initRepository();
         //XMLOutputter xmlOutputter = new XMLOutputter();
         //String res = xmlOutputter.outputString(doc);
@@ -66,14 +68,30 @@ public class LibraryExistDescriptor extends Descriptor<Map<String,String>,String
             col.close();
             return doc;
         } catch (Exception ex) {
+            ex.printStackTrace(System.err);
             return null;
         }
     }
-    
 
     @Override
     public void initRepository() {
-        
+        try {
+            references=new ArrayList<>();
+            Database database = (Database) (Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
+            DatabaseManager.registerDatabase(database);
+            Collection col = DatabaseManager.getCollection(repositoryAddress.get("library"),repositoryAddress.get("login"),repositoryAddress.get("password"));
+            String[] books=col.listChildCollections();
+            for(String book:books){
+                if(book.endsWith(filter)){
+                    System.out.println(book);
+                    references.add(book);
+                }
+            }
+            Collections.sort(references);
+            //col.close();
+            repository=col;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
     }
-
 }

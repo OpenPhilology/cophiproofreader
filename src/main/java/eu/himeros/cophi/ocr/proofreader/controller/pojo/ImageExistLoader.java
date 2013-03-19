@@ -35,32 +35,35 @@ import org.xmldb.api.modules.BinaryResource;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class ImageExistLoader implements ImageLoader<Map<String,String>> {    
-            public static void main(String args[]) throws Exception{
-            HashMap<String,String> pageInfoMap=new HashMap<>();
-            pageInfoMap.put("library","xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
-            pageInfoMap.put("book","Euclides-Opera1.book");
-            pageInfoMap.put("image","i0208.png");
-            pageInfoMap.put("login","user01");
-            pageInfoMap.put("password","01resu");
-            ImageExistLoader ie=new ImageExistLoader();
-            Image img=ie.load(pageInfoMap);
-        }
+public class ImageExistLoader implements ImageLoader<Map<String,Object>> {    
+           
+//    public static void main(String args[]) throws Exception{
+//            HashMap<String,String> pageInfoMap=new HashMap<>();
+//            pageInfoMap.put("library","xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
+//            pageInfoMap.put("book","Euclides-Opera1.book");
+//            pageInfoMap.put("image","i0208.png");
+//            pageInfoMap.put("login","user01");
+//            pageInfoMap.put("password","01resu");
+//            ImageExistLoader ie=new ImageExistLoader();
+//            Image img=ie.load(pageInfoMap);
+//        }
             
    @Override
-   public Image load(Map<String,String> origin) {
+   public Image load(Map<String,Object> origin) {
         try{
-            String library=origin.get("library");
-            String book=library+"/"+origin.get("book");
-            String image=origin.get("image");
-            String login=origin.get("login");
-            String password=origin.get("password");
-            Database database = (Database)(Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
-            DatabaseManager.registerDatabase(database);
-            Collection col = DatabaseManager.getCollection(book,login,password);
-            Resource resX=col.getResource(image);
-            System.out.println(resX.getResourceType());
-            BinaryResource res= (BinaryResource)col.getResource(image);
+            //String library=origin.get("library");
+            //String book=library+"/"+origin.get("book");
+            //String image=origin.get("image");
+            //String login=origin.get("login");
+            //String password=origin.get("password");
+            //Database database = (Database)(Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
+            //DatabaseManager.registerDatabase(database);
+            //Collection col = DatabaseManager.getCollection(book,login,password);
+            //Resource resX=col.getResource(image);
+            //System.out.println(resX.getResourceType());
+            Collection libCol=(Collection)origin.get("library");
+            Collection bookCol=libCol.getChildCollection((String)origin.get("book"));
+            BinaryResource res= (BinaryResource)bookCol.getResource((String)origin.get("image"));
             byte[] bs=(byte[])res.getContent();
             BufferedImage img=ImageIO.read(new ByteArrayInputStream(bs));
             System.out.println(img.toString());

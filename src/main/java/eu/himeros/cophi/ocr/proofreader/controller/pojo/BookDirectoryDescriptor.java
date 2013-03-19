@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  * Manages descriptions of the content of a book, represented by references to the resources.
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class BookDirectoryDescriptor extends Descriptor<String,String,String> {
+public class BookDirectoryDescriptor extends Descriptor<String,String,String,String> {
     private static final transient Logger logger=Logger.getLogger(BookDirectoryDescriptor.class.getName());
     File bookDir;
 
@@ -38,8 +38,8 @@ public class BookDirectoryDescriptor extends Descriptor<String,String,String> {
      * @param bookDirName the reference to the book resource.
      */
     @Override
-    public void setRepository(String bookDirName) {
-        this.repository = bookDirName;
+    public void setRepositoryAddress(String bookDirName) {
+        this.repositoryAddress = bookDirName;
         bookDir=new File(bookDirName);
     }
     
