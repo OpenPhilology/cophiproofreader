@@ -165,7 +165,7 @@ public class OcrPageBean implements Serializable {
      * @param wordIdx the word index of the line in which the correction occurs.
      */
     public void updateInsertion(String text, int lineIdx, int wordIdx) {
-        text = text.replaceAll("\u261a", "");
+        text = text.replaceAll("[\u261a|\u261b]", "");
         //cancel the little hand (if present, which represent a suggestion due to alignment with another edition).
         page.getOcrLines().get(lineIdx).getOcrWords().get(wordIdx).getInsertion().setText(text);
         page.getOcrLines().get(lineIdx).getOcrWords().get(wordIdx).getInsertion().setNlp("nlp 1.00");

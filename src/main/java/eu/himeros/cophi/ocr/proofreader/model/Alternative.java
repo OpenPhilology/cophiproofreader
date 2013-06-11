@@ -107,6 +107,9 @@ public class Alternative extends Token<String> {
             case "nlp097":
                 nlpColor = "red";
                 break;
+            case "nlp070":
+                nlpColor="green";
+                break;
             case "nlp010":
                 nlpColor="gray";
                 break;
@@ -146,6 +149,10 @@ public class Alternative extends Token<String> {
             case 97:
                 nlp = "nlp 0.97";
                 nlpColor = "red";
+                break;
+            case 70:
+                nlp="nlp 0.70";
+                nlpColor="green";
                 break;
             case 10:
                 nlp="nlp 0.10";
@@ -190,6 +197,10 @@ public class Alternative extends Token<String> {
             case "nlp097":
                 nlpDbl=0.97;
                 nlpColor = "red";
+                break;
+            case "nlp070":
+                nlpDbl=0.70;
+                nlpColor="greek";
                 break;
             case "nlp010":
                 nlpDbl=0.10;

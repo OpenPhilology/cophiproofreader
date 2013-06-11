@@ -100,9 +100,9 @@ public class InitBean implements Serializable{
     }
 
     public Map<String, String> getLibraryAddress() {
-        libraryAddress.put("library","xmldb:exist://localhost:8088/xmlrpc/db/perseus-ocr");
-        libraryAddress.put("login","userXYZ");
-        libraryAddress.put("password","passwordXYZ");
+        libraryAddress.put("library","xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
+        libraryAddress.put("login","user01");
+        libraryAddress.put("password","01resu");
         return libraryAddress;
     }
 

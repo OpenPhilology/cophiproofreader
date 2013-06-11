@@ -88,10 +88,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </p:graphicImage>
                                     <h:outputText value="&lt;br/&gt;" escape="false"/>
                                     <c:forEach items="#{ocrLine.ocrWords}" var="ocrWord" varStatus="wordStatus">
-                                        <p:inplace editor="true" emptyLabel="#" style="font-family:Helvetica;font-size: medium;color:#{ocrWord.insertion.nlpColor}">
+                                            <p:inplace editor="true" emptyLabel="#" style="font-family:Helvetica;font-size: medium;color:#{ocrWord.insertion.nlpColor}" widgetVar="i_#{ocrLine}_#{ocrWord}">
                                             <p:selectOneMenu editable="true" value="${ocrWord.insertion.text}">
                                                 <f:selectItem  itemLabel="#{ocrWord.insertion.text}" itemValue="#{ocrWord.insertion.text}"/>
-                                                <f:selectItems value="#{ocrWord.deletions}" var="del" itemLabel="#{del.text}" itemValue="#{del.text}"/>
+                                                <f:selectItems value="#{ocrWord.deletions}" var="del" itemLabel="#{del.text}" itemValue="#{del.text}"/>                                       
                                             </p:selectOneMenu>
                                             <p:ajax event="save" update="@this" listener="#{pageBean.updateInsertion(ocrWord.insertion.text,lineStatus.index,wordStatus.index)}"/>
                                         </p:inplace><p:spacer width="10px"/>
