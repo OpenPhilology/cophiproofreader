@@ -22,9 +22,12 @@ package eu.himeros.cophi.ocr.proofreader.controller.bean;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -100,14 +103,38 @@ public class InitBean implements Serializable{
     }
 
     public Map<String, String> getLibraryAddress() {
-        libraryAddress.put("library","xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
-        libraryAddress.put("login","user01");
-        libraryAddress.put("password","01resu");
+        libraryAddress.put("library",MessageProvider.getValue("library"));
+        libraryAddress.put("login",MessageProvider.getValue("login"));
+        libraryAddress.put("password",MessageProvider.getValue("password"));
         return libraryAddress;
     }
 
     public void setLibraryAddress(Map<String, String> libraryAccess) {
         this.libraryAddress = libraryAccess;
     }
+    
+   private static class MessageProvider{
+       private static ResourceBundle bundle;
+
+	public static ResourceBundle getBundle() {
+		if (bundle == null) {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    bundle = context.getApplication().getResourceBundle(context, "config");
+		}
+		return bundle;
+	}
+
+	public static String getValue(String key) {
+
+		String result = null;
+		try {
+			result = getBundle().getString(key);
+		} catch (MissingResourceException e) {
+			result = "???" + key + "??? not found";
+			e.printStackTrace();
+		}
+		return result;
+	}
+   }
     
 }

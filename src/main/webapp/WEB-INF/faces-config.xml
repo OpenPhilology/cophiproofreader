@@ -9,4 +9,12 @@
             <managed-bean-class>eu.himeros.cophi.proofreader.HocrParser</managed-bean-class>
             <managed-bean-scope>session</managed-bean-scope>
         </managed-bean>-->
+        
+        <application>
+            <resource-bundle>
+                <base-name>eu.himeros.cophi.ocr.proofreader.controller.bean.resources.config</base-name>
+                <var>config</var>
+            </resource-bundle>
+        </application>
+        
 </faces-config>
