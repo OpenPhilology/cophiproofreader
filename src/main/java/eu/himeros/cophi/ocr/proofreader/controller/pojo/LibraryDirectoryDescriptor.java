@@ -50,7 +50,7 @@ public class LibraryDirectoryDescriptor extends Descriptor<String, String, Strin
      */
     @Override
     public void initRepository() {
-        references = new ArrayList<>();
+        references = new ArrayList<String>();
         logger.log(Level.INFO, libraryDir.getAbsoluteFile().toString());
         for (File bookDir : libraryDir.listFiles(new FilenameFilter() {
             @Override

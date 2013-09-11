@@ -116,7 +116,7 @@ public class OcrPageImageBean implements Serializable {
             try {
                 //ImageIcon iic = new ImageIcon((String) line.getScan().getImage());//!!!
                 //pageImage = ((ToolkitImage) iic.getImage()).getBufferedImage();//!!!
-                Map<String,Object> pageInfoMap=new HashMap<>();
+                Map<String,Object> pageInfoMap=new HashMap<String,Object>();
                 pageInfoMap.put("library",libraryBean.getLibrary().getRepository());
                 pageInfoMap.put("book",libraryBean.getLibrary().getCurrBook().getOcrBookId());
                 //pageInfoMap.put("image",(String)(((String)libraryBean.getLibrary().getCurrBook().getCurrPage().getScan().getImage()).replaceAll(".png",".jpg")));

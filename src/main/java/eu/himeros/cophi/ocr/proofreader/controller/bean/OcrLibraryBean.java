@@ -58,7 +58,7 @@ public class OcrLibraryBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        library = new OcrLibrary<>();
+        library = new OcrLibrary<Map<String,String>, String, String,Collection>();
         library.setLibraryAddress(initBean.getLibraryAddress());
         library.setBookFilter(initBean.getBookFilter());
         library.setPageFilter(initBean.getPageFilter());
@@ -70,7 +70,7 @@ public class OcrLibraryBean implements Serializable {
         List<String> bookIds = libDescriptor.getReferences();
         int i = 0;
         for (String bookId : bookIds) {
-            OcrBook<String> book = new OcrBook<>();
+            OcrBook<String> book = new OcrBook<String>();
             book.setId(i);
             book.setOcrBookId(bookId);
             String bookLabel = bookId.replaceAll("_", " ").replaceAll("-", ", ").replaceAll("\\..*?$", "");

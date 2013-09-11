@@ -168,8 +168,8 @@ public class OcrPageParser implements Serializable {
         Element root = hocrDocument.getRootElement();
         Namespace xmlns=root.getNamespace();
         String scanId = root.getChildren().get(1).getChildren().get(0).getAttributeValue("id");
-        ocrPage.setScan(new PageScan<>(scanId));
-        List<OcrLine> ocrLines = new ArrayList<>();
+        ocrPage.setScan(new PageScan(scanId));
+        List<OcrLine> ocrLines = new ArrayList<OcrLine>();
         for (Element ocrLineEl : root.getChildren().get(1).getChildren().get(0).getChildren("span",xmlns)) { //cycle on /html/body/span[@class='ocr_page']/span[@class='ocr_line']
             ocrLines.add(parseOcrLine(ocrLineEl));
         }
@@ -186,7 +186,7 @@ public class OcrPageParser implements Serializable {
         OcrLine ocrLine = new OcrLine();       
         OcrCoords ocrLineCoords = new OcrCoords(ocrLineEl.getAttributeValue("title"));
         ocrLine.setScan(new PageScan(ocrPage.getScan().getImage(),ocrLineCoords)); //!!!! PATH!!!!
-        List<OcrWord> ocrWords = new ArrayList<>();
+        List<OcrWord> ocrWords = new ArrayList<OcrWord>();
         for (Element ocrWordEl : ocrLineEl.getChildren()) {
             ocrWords.add(parseOcrWord(ocrWordEl));
         }
@@ -206,7 +206,7 @@ public class OcrPageParser implements Serializable {
         OcrCoords ocrWordCoords = new OcrCoords(ocrWordEl.getAttributeValue("title"));
         ocrWord.setScan(new PageScan(ocrWordCoords));
         boolean firstLine = true;
-        List<Deletion> alternativeDeletions = new ArrayList<>();
+        List<Deletion> alternativeDeletions = new ArrayList<Deletion>();
         for (Element ocrAlternativeEl : ocrWordEl.getChildren().get(0).getChildren()) {
             if(firstLine){
                 ocrWord.setInsertion(parseAlternativeInsertion(ocrAlternativeEl));

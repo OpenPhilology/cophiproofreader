@@ -55,7 +55,7 @@ public class OcrPageBean implements Serializable {
     private OcrPage page;
     private int pageReference;
     //private int prevPageReference = -1;
-    private Map<String,Object> pageInfoMap=new HashMap<>();    
+    private Map<String,Object> pageInfoMap=new HashMap<String,Object>();    
     /**
      * Default constructor
      */
@@ -152,7 +152,13 @@ public class OcrPageBean implements Serializable {
             //String path = library.getLibraryAddress() + File.separator + library.getCurrBook().getOcrBookId() + File.separator;
             OcrPageParser opp = new OcrPageParser();
             page = opp.parse(inHocrDocument,pageInfoMap);
-        } catch (FileNotFoundException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.err);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace(System.err);
+        } catch (InstantiationException ex) {
+            ex.printStackTrace(System.err);
+        } catch (IllegalAccessException ex) {
             ex.printStackTrace(System.err);
         }
     }
@@ -180,7 +186,7 @@ public class OcrPageBean implements Serializable {
         HocrDocumentExistSaver hocrDocumentExistSaver = new HocrDocumentExistSaver();
         try {
             //String absolutePath=bookBean.getLibraryBean().getLibrary().getLibraryAddress()+File.separator+bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId()+File.separator+page.getOcrPageId();
-            pageInfoMap=new HashMap<>();
+            pageInfoMap=new HashMap<String,Object>();
             pageInfoMap.put("library",(Collection)bookBean.getLibraryBean().getLibrary().getRepository());
             pageInfoMap.put("book",bookBean.getLibraryBean().getLibrary().getCurrBook().getOcrBookId());
             pageInfoMap.put("page",bookBean.getLibraryBean().getLibrary().getCurrBook().getCurrPage().getOcrPageId());

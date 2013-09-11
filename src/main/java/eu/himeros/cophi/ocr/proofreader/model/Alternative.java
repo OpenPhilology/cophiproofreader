@@ -94,23 +94,23 @@ public class Alternative extends Token<String> {
         String[] labelValue = nlp.split(" ");
         nlpDbl = Double.parseDouble(labelValue[1]);
         nlpStyleClass = nlp.replaceAll("[ \\.]", "");
-        switch (nlpStyleClass) {
-            case "nlp100":
+        switch (Integer.valueOf(nlpStyleClass.replaceAll("nlp",""))) {
+            case 100:
                 nlpColor = "black";
                 break;
-            case "nlp099":
+            case 99:
                 nlpColor = "blue";
                 break;
-            case "nlp098":
+            case 98:
                 nlpColor = "brown";
                 break;
-            case "nlp097":
+            case 97:
                 nlpColor = "red";
                 break;
-            case "nlp070":
+            case 70:
                 nlpColor="green";
                 break;
-            case "nlp010":
+            case 10:
                 nlpColor="gray";
                 break;
             default:
@@ -181,28 +181,29 @@ public class Alternative extends Token<String> {
     //TODO: manage it by properties file
     public void setNlpStyleClass(String nlpStyleClass) {
         this.nlpStyleClass = nlpStyleClass;
-                switch (nlpStyleClass) {
-            case "nlp100":
+
+                switch (Integer.valueOf(nlpStyleClass.replaceAll("nlp",""))) {
+            case 100:
                 nlpDbl = 1.00;
                 nlpColor = "black";
                 break;
-            case "nlp099":
+            case 99:
                 nlpDbl = 0.99;
                 nlpColor = "blue";
                 break;
-            case "nlp098":
+            case 98:
                 nlpDbl=0.98;
                 nlpColor = "brown";
                 break;
-            case "nlp097":
+            case 97:
                 nlpDbl=0.97;
                 nlpColor = "red";
                 break;
-            case "nlp070":
+            case 70:
                 nlpDbl=0.70;
                 nlpColor="greek";
                 break;
-            case "nlp010":
+            case 10:
                 nlpDbl=0.10;
                 nlpColor="gray";
                 break;

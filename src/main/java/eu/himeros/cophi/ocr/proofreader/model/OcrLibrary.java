@@ -46,7 +46,7 @@ public class OcrLibrary<T1,T2,T3,T4> extends Library{
      */
     public OcrLibrary(){
         currBookReference=-1;
-        ocrBooks=new ArrayList<>();
+        ocrBooks=new ArrayList<OcrBook>();
     }
 
     /**

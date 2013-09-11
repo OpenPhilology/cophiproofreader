@@ -42,7 +42,10 @@ public class HocrDocumentBufferedReader implements HocrDocumentLoader<BufferedRe
         try{
             SAXBuilder builder = new SAXBuilder();
             return builder.build(origin);
-        }catch(IOException|JDOMException ex){
+        }catch(IOException ex){
+            ex.printStackTrace(System.err);
+            return null;
+        }catch(JDOMException ex){
             ex.printStackTrace(System.err);
             return null;
         }

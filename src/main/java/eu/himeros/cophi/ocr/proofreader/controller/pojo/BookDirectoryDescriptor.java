@@ -49,7 +49,7 @@ public class BookDirectoryDescriptor extends Descriptor<String,String,String,Str
      */
     @Override
     public void initRepository(){
-        references=new ArrayList<>();
+        references=new ArrayList<String>();
         for (File pageFile : bookDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {

@@ -33,7 +33,7 @@ public class BookExistDescriptor extends Descriptor<Map<String, String>, String,
     public void initRepository() {
         try {
             Collection col = repository.getChildCollection(repositoryAddress.get("book"));
-            references = new ArrayList<>();
+            references = new ArrayList<String>();
             for (String page : col.listResources()) {
                 if(page.endsWith(filter)){
                     references.add(page);

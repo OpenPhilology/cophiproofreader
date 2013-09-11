@@ -46,7 +46,7 @@ public class InitBean implements Serializable{
 
     private final static transient Logger log= Logger.getLogger(InitBean.class.getName());
     //private String root="/opt/junk";
-    private Map<String,String> libraryAddress=new HashMap<>();
+    private Map<String,String> libraryAddress=new HashMap<String,String>();
     private String bookFilter=".book";
     private String pageFilter=".html";
     private String imageFilter=".jpg";

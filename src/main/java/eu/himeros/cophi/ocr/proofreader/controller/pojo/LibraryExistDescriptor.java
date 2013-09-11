@@ -37,7 +37,7 @@ import org.xmldb.api.modules.XMLResource;
 public class LibraryExistDescriptor extends Descriptor<Map<String, String>, String, String, Collection> {
 
     public static void main(String args[]) throws Exception {
-        HashMap<String, String> pageInfoMap = new HashMap<>();
+        HashMap<String, String> pageInfoMap = new HashMap<String,String>();
         pageInfoMap.put("library", "xmldb:exist://cophi.ilc.cnr.it:8088/xmlrpc/db/perseus-ocr");
         //pageInfoMap.put("book", "Euclides-Opera1.book");
         //pageInfoMap.put("page", "p0208.html");
@@ -76,7 +76,7 @@ public class LibraryExistDescriptor extends Descriptor<Map<String, String>, Stri
     @Override
     public void initRepository() {
         try {
-            references=new ArrayList<>();
+            references=new ArrayList<String>();
             Database database = (Database) (Class.forName("org.exist.xmldb.DatabaseImpl").newInstance());
             DatabaseManager.registerDatabase(database);
             Collection col = DatabaseManager.getCollection(repositoryAddress.get("library"),repositoryAddress.get("login"),repositoryAddress.get("password"));
