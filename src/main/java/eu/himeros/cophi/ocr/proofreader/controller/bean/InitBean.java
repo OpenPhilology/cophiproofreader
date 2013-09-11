@@ -49,7 +49,7 @@ public class InitBean implements Serializable{
     private Map<String,String> libraryAddress=new HashMap<>();
     private String bookFilter=".book";
     private String pageFilter=".html";
-    private String imageFilter=".png";
+    private String imageFilter=".jpg";
     //TODO: properties must be read from a property file or from the main webage
     
     /**
